@@ -38,6 +38,7 @@ oc create configmap apim-tomcat --from-file=confs/apim/repository/conf/tomcat/
 echo 'creating services and volume claims...'
 oc create -f resources/apim-analytics/wso2apim-analytics-service.yaml
 oc create -f resources/apim/wso2apim-service.yaml
+oc create -f resources/apim/wso2apim-gw-service.yaml
 oc create -f resources/apim/wso2apim-volume-claim.yaml
 
 sleep 10s

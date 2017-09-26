@@ -34,8 +34,8 @@
 
     <modules>
         <module>jwt-security</module>
-        <module>loan-service</module>
-        <module>credit-service</module>
-        <module>customer-service</module>
+        <module>loans-service</module>
+        <module>credits-service</module>
+        <module>customers-service</module>
     </modules>
 </project>
