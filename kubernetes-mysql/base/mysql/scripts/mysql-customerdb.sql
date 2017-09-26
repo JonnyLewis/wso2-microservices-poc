@@ -1,0 +1,13 @@
+CREATE DATABASE customerdb;
+USE customerdb;
+
+CREATE TABLE `CUSTOMER` (
+  `ID` varchar(100) NOT NULL,
+  `FNAME` varchar(100) DEFAULT NULL,
+  `LNAME` varchar(100) DEFAULT NULL,
+  `ADDRESS` varchar(100) DEFAULT NULL,
+  `STATE` varchar(45) DEFAULT NULL,
+  `POSTALCODE` varchar(45) DEFAULT NULL,
+  `COUNTRY` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
