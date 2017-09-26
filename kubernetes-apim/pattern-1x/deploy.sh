@@ -18,10 +18,10 @@
 
 oc project wso2
 
-# volumes
+echo 'creating volumes...'
 oc create -f resources/volumes/persistent-volumes.yaml
 
-# Configuration Maps
+echo 'creating config maps...'
 oc create configmap apim-analytics-bin --from-file=confs/apim-analytics/bin/
 oc create configmap apim-analytics-conf --from-file=confs/apim-analytics/repository/conf/
 oc create configmap apim-analytics-axis2 --from-file=confs/apim-analytics/repository/conf/axis2/
@@ -35,22 +35,22 @@ oc create configmap apim-axis2 --from-file=confs/apim/repository/conf/axis2/
 oc create configmap apim-datasources --from-file=confs/apim/repository/conf/datasources/
 oc create configmap apim-tomcat --from-file=confs/apim/repository/conf/tomcat/
 
-echo 'deploying services and volume claims ...'
+echo 'creating services and volume claims...'
 oc create -f resources/apim-analytics/wso2apim-analytics-service.yaml
 oc create -f resources/apim/wso2apim-service.yaml
 oc create -f resources/apim/wso2apim-volume-claim.yaml
 
 sleep 10s
-# analytics
-echo 'deploying apim analytics ...'
+echo 'deploying apim analytics...'
 oc create -f resources/apim-analytics/wso2apim-analytics-deployment.yaml
 
-sleep 60s
-apim
+echo 'waiting for apim analytics to get started...'
+sleep 30s
+
 echo 'deploying apim...'
 oc create -f resources/apim/wso2apim-deployment.yaml
 
-echo 'deploying wso2apim and wso2apim-analytics routes ...'
+echo 'creating apim and apim analytics routes...'
 oc create -f resources/routes/wso2apim-route.yaml
 oc create -f resources/routes/wso2apim-gw-route.yaml
 oc create -f resources/routes/wso2apim-analytics-route.yaml

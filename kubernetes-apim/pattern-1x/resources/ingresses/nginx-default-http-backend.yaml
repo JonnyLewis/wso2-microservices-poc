@@ -21,7 +21,7 @@ metadata:
   name: nginx-default-http-backend
   labels:
     k8s-app: nginx-default-http-backend
-    pattern: wso2apim-pattern-0
+    pattern: wso2apim-pattern-1x
   namespace: kube-system
 spec:
   replicas: 1

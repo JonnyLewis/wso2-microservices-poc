@@ -15,43 +15,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wso2apim-analytics
+  name: wso2apim-gw
   labels:
-    app: wso2apim-analytics
-    pattern: wso2apim-pattern-0
+    app: wso2apim
+    pattern: wso2apim-pattern-1x
 spec:
   ports:
     # ports that this service should serve on
     -
-      name: 'thrift'
-      port: 7612
+      name: 'pass-through-http'
       protocol: TCP
+      port: 8280
     -
-      name: 'thrift-ssl'
-      port: 7712
+      name: 'pass-through-https'
       protocol: TCP
-    -
-      name: 'servlet-http'
-      protocol: TCP
-      port: 9764
-    -
-      name: 'servlet-https'
-      protocol: TCP
-      port: 9444
-    -
-      name: 'spark-1'
-      protocol: TCP
-      port: 8082
-    -
-      name: 'spark-2'
-      protocol: TCP
-      port: 4041
-    -
-      name: 'spark-3'
-      protocol: TCP
-      port: 11501
+      port: 8243
   # label keys and values that must match in order to receive traffic for this service
   selector:
-    app: wso2apim-analytics
-    pattern: wso2apim-pattern-0
-  sessionAffinity: ClientIP
+    app: wso2apim
+    pattern: wso2apim-pattern-1x

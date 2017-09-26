@@ -15,15 +15,15 @@
 apiVersion: v1
 kind: Route
 metadata:
-  name: wso2apim-gw-route
+  name: wso2apim-route
   labels:
-    pattern: wso2apim-pattern-0
+    pattern: wso2apim-pattern-1x
 spec:
-  host: wso2apim-gw
+  host: wso2apim
   port:
-    targetPort: pass-through-https
+    targetPort: servlet-https
   to:
     kind: Service
-    name: wso2apim-gw
+    name: wso2apim
   tls:
     termination: passthrough
