@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# ------------------------------------------------------------------------
+# Copyright 2017 WSO2, Inc. (http://wso2.com)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+# ------------------------------------------------------------------------
+
+oc project wso2
+
+# volumes
+oc create -f resources/volumes/persistent-volumes.yaml
+
+# Configuration Maps
+oc create configmap apim-analytics-bin --from-file=confs/apim-analytics/bin/
+oc create configmap apim-analytics-conf --from-file=confs/apim-analytics/repository/conf/
+oc create configmap apim-analytics-axis2 --from-file=confs/apim-analytics/repository/conf/axis2/
+oc create configmap apim-analytics-datasources --from-file=confs/apim-analytics/repository/conf/datasources/
+oc create configmap apim-analytics-tomcat --from-file=confs/apim-analytics/repository/conf/tomcat/
+
+oc create configmap apim-bin --from-file=confs/apim/bin/
+oc create configmap apim-conf --from-file=confs/apim/repository/conf/
+oc create configmap apim-identity --from-file=confs/apim/repository/conf/identity/
+oc create configmap apim-axis2 --from-file=confs/apim/repository/conf/axis2/
+oc create configmap apim-datasources --from-file=confs/apim/repository/conf/datasources/
+oc create configmap apim-tomcat --from-file=confs/apim/repository/conf/tomcat/
+
+echo 'deploying services and volume claims ...'
+oc create -f resources/apim-analytics/wso2apim-analytics-service.yaml
+oc create -f resources/apim/wso2apim-service.yaml
+oc create -f resources/apim/wso2apim-volume-claim.yaml
+
+sleep 10s
+# analytics
+echo 'deploying apim analytics ...'
+oc create -f resources/apim-analytics/wso2apim-analytics-deployment.yaml
+
+sleep 60s
+apim
+echo 'deploying apim...'
+oc create -f resources/apim/wso2apim-deployment.yaml
+
+echo 'deploying wso2apim and wso2apim-analytics routes ...'
+oc create -f resources/routes/wso2apim-route.yaml
+oc create -f resources/routes/wso2apim-gw-route.yaml
+oc create -f resources/routes/wso2apim-analytics-route.yaml
