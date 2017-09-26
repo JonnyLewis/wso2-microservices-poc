@@ -355,6 +355,29 @@
       Security configurations
     -->
     <Security>
+        <CSRFPreventionConfig>
+            <Enabled>true</Enabled> <!--Enable/Disable CSRF prevention-->
+            <Rule>allow</Rule>
+
+            <!--URL Pattern to skip the CSRF prevention-->
+            <Patterns>
+                <Pattern>commonauth</Pattern>
+                <Pattern>samlsso</Pattern>
+                <Pattern>authenticationendpoint</Pattern>
+                <Pattern>wso2</Pattern>
+                <Pattern>oauth2</Pattern>
+                <Pattern>openid</Pattern>
+                <Pattern>openidserver</Pattern>
+                <Pattern>passivests</Pattern>
+                <Pattern>services</Pattern>
+            </Patterns>
+
+            <!--List of URL to allow as source to access the system-->
+            <WhiteList>
+                <Url>https://wso2apim</Url>
+            </WhiteList>
+        </CSRFPreventionConfig>
+
         <!--
             KeyStore which will be used for encrypting/decrypting passwords
             and other sensitive information.
