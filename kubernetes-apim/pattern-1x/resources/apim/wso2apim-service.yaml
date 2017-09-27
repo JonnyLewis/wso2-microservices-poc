@@ -20,6 +20,7 @@ metadata:
     app: wso2apim
     pattern: wso2apim-pattern-1x
 spec:
+  type: NodePort
   ports:
     # ports that this service should serve on
     -
@@ -30,6 +31,7 @@ spec:
       name: "servlet-https"
       protocol: TCP
       port: 9443
+      nodePort: 32002
     -
       name: "jms-tcp"
       protocol: TCP
@@ -54,4 +56,3 @@ spec:
   selector:
     app: wso2apim
     pattern: wso2apim-pattern-1x
-  sessionAffinity: ClientIP

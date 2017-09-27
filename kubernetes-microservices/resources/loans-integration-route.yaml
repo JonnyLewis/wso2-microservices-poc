@@ -1,4 +1,4 @@
-# Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+# Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,26 +13,15 @@
 # limitations under the License.
 
 apiVersion: v1
-kind: Service
+kind: Route
 metadata:
-  name: wso2apim-gw
+  name: loans-integration-route
   labels:
-    app: wso2apim
-    pattern: wso2apim-pattern-1x
+    app: loans-integration
 spec:
-  type: NodePort
-  ports:
-    # ports that this service should serve on
-    -
-      name: 'pass-through-http'
-      protocol: TCP
-      port: 8280
-    -
-      name: 'pass-through-https'
-      protocol: TCP
-      port: 8243
-      nodePort: 32001
-  # label keys and values that must match in order to receive traffic for this service
-  selector:
-    app: wso2apim
-    pattern: wso2apim-pattern-1x
+  host: loans-integration
+  port:
+    targetPort: default
+  to:
+    kind: Service
+    name: loans-integration
