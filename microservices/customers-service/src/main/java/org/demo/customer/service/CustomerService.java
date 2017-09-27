@@ -69,7 +69,7 @@ public class CustomerService {
     public Response getCustomer(@ApiParam(value = "id", required = true)
                                 @PathParam("id") String id) {
 
-        logger.info("Get customer invoked.");
+        logger.info("HTTP GET /{id} resource invoked: [id] " + id);
         CustomerDAO customerDAO = new CustomerDAO();
         CustomerBean customerBean = customerDAO.getCustomer(id);
 

@@ -29,7 +29,7 @@ service<http> loanApplicationsService {
         float percentage = 40;
         float loanamount;
         float amounteligible;
-        float outstandingbalance;
+        float outstandingBalance;
 
         customerId, _ = (string)jsonMsg["customerId"];
         income, _ = (float)jsonMsg["income"];
@@ -55,10 +55,10 @@ service<http> loanApplicationsService {
         system:println("Valid credit records found");
 
         json jsonResponse = messages:getJsonPayload(response);
-        outstandingbalance, _ = (float)jsonResponse["outstandingbalance"];
-        amounteligible = ((income-outstandingbalance) * percentage) / 100;
+        outstandingBalance, _ = (float)jsonResponse["outstandingBalance"];
+        amounteligible = ((income-outstandingBalance) * percentage) / 100;
 
-        system:println("Outstanding balance: " + outstandingbalance);
+        system:println("Outstanding balance: " + outstandingBalance);
         system:println("Amount elligible for the loan: " + amounteligible);
         if(loanamount  > amounteligible){
             messages:setStringPayload(response, "Customer is not elligible to get that amount " + loanamount);
