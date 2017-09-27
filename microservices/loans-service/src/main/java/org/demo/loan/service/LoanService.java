@@ -27,7 +27,7 @@ import io.swagger.annotations.SwaggerDefinition;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.demo.loan.ApplicationStatus;
-import org.demo.loan.bean.ApplicationBean;
+import org.demo.loan.bean.LoanApplication;
 import org.demo.loan.dao.LoanApplicationDAO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,7 +76,7 @@ public class LoanService {
 
         logger.info("HTTP GET / resource invoked");
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
-        List<ApplicationBean> applicationBeanList = applicationDAO.getAllLaonApplications();
+        List<LoanApplication> applicationBeanList = applicationDAO.getAllLaonApplications();
 
         JSONArray jsonArray = new JSONArray(applicationBeanList.toArray());
         JSONObject returnObject = new JSONObject();
@@ -117,7 +117,7 @@ public class LoanService {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "{referenceNumber:HOU2017000012}"),
             @ApiResponse(code = 404, message = "Particular exception message")})
-    public Response create(@ApiParam(value = "Application object", required = true) ApplicationBean loanApplication) {
+    public Response create(@ApiParam(value = "Application object", required = true) LoanApplication loanApplication) {
 
         logger.info("HTTP POST / resource invoked: \n" + loanApplication);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();

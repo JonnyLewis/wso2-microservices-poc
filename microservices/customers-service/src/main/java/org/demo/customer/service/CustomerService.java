@@ -26,7 +26,7 @@ import io.swagger.annotations.License;
 import io.swagger.annotations.SwaggerDefinition;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.demo.customer.bean.CustomerBean;
+import org.demo.customer.bean.Customer;
 import org.demo.customer.dao.CustomerDAO;
 import org.json.JSONObject;
 
@@ -71,7 +71,7 @@ public class CustomerService {
 
         logger.info("HTTP GET /{id} resource invoked: [id] " + id);
         CustomerDAO customerDAO = new CustomerDAO();
-        CustomerBean customerBean = customerDAO.getCustomer(id);
+        Customer customerBean = customerDAO.getCustomer(id);
 
         if (customerBean != null) {
             JSONObject returnObject = new JSONObject();

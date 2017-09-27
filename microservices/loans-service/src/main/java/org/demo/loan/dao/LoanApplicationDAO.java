@@ -1,7 +1,23 @@
+/*
+ * Copyright (c) 2017, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.demo.loan.dao;
 
 import org.demo.loan.ApplicationStatus;
-import org.demo.loan.bean.ApplicationBean;
+import org.demo.loan.bean.LoanApplication;
 import org.demo.loan.util.DatabaseUtil;
 import org.demo.loan.util.SQLQueries;
 import org.slf4j.Logger;
@@ -24,7 +40,7 @@ public class LoanApplicationDAO {
      * @param application - Application
      * @return reference number
      */
-    public String createLoanApplication(ApplicationBean application) {
+    public String createLoanApplication(LoanApplication application) {
         Connection dbConnection = null;
         PreparedStatement prepStmt = null;
         ResultSet resultSet = null;
@@ -95,17 +111,17 @@ public class LoanApplicationDAO {
      * Get all loan applications
      * @return Application list
      */
-    public List<ApplicationBean> getAllLaonApplications() {
+    public List<LoanApplication> getAllLaonApplications() {
         Connection dbConnection = null;
         PreparedStatement prepStmt = null;
         ResultSet resultSet = null;
-        List<ApplicationBean> applicationBeanList = new ArrayList<>();
+        List<LoanApplication> applicationBeanList = new ArrayList<>();
         try {
             dbConnection = DatabaseUtil.getDBConnection();
             prepStmt = dbConnection.prepareStatement(SQLQueries.QUERY_GET_ALL_APPLICATION);
             resultSet = prepStmt.executeQuery();
             while (resultSet.next()) {
-                ApplicationBean applicationBean = new ApplicationBean();
+                LoanApplication applicationBean = new LoanApplication();
                 applicationBean.setAmount(resultSet.getDouble("AMOUNT"));
                 applicationBean.setCustomerId(resultSet.getString("CUSTOMER_ID"));
                 applicationBean.setId(resultSet.getInt("ID"));
