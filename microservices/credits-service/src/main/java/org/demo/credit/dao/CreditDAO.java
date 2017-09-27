@@ -38,7 +38,7 @@ public class CreditDAO {
      * @param customerId - Customer Id
      * @return - Total credit amount
      */
-    public double getTotalCreditAmount(String customerId) {
+    public double getTotalCreditAmount(String customerId) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement prepStmt = null;
         ResultSet resultSet = null;
@@ -55,10 +55,10 @@ public class CreditDAO {
         } catch (SQLException e) {
             String errorMessage = "Error occurred while getting customer's total credit amount";
             logger.error(errorMessage, e);
+            throw e;
         } finally {
             DatabaseUtil.closeAllConnections(dbConnection, resultSet, prepStmt);
         }
-        return totalCreditAmount;
     }
 
     /**

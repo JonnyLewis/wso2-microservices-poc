@@ -70,7 +70,7 @@ public class CreditService {
             @ApiResponse(code = 200, message = "{outstandingBalance:200.00}"),
             @ApiResponse(code = 500, message = "Particular exception message")})
     public Response getTotalCreditAmount(@ApiParam(value = "id", required = true)
-                                          @PathParam("id") String id) {
+                                          @PathParam("id") String id) throws SQLException {
 
         logger.info("HTTP GET /{id} resource invoked: [id] " + id);
         CreditDAO creditDAO = new CreditDAO();
