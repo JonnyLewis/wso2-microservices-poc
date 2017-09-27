@@ -68,9 +68,9 @@ service<http> loanApplicationsService {
 
         system:println("Create loan application: HTTP POST " + loansServiceUrl + "/\n" + jsons:toString(jsonMsg));
         response = loanserviceEP.post("/", m);
-        system:println("Loan application created successfully");
+        jsonResponse = messages:getJsonPayload(response);
+        system:println("Loan application created successfully: \n" + jsons:toString(jsonResponse));
         reply response;
-
     }
 
     @http:resourceConfig {
