@@ -16,14 +16,17 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-oc project wso2
+pushd kubernetes-mysql/
+./deploy.sh
+popd
+echo 'waiting mysql server to get started...'
+sleep 30s
 
-echo 'deploying mysql server...'
+pushd kubernetes-microservices/
+./deploy.sh
+popd
 
-# volumes
-oc create -f resources/volumes/persistent-volumes.yaml
-
-# databases
-oc create -f resources/mysql-persistent-volume-claim.yaml
-oc create -f resources/mysql-service.yaml
-oc create -f resources/mysql-deployment.yaml
+pushd kubernetes-apim/pattern-1x/
+./deploy.sh
+popd
+echo 'DONE!'

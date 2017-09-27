@@ -1,6 +1,5 @@
 # WSO2 Microservices POC
 
-
 This repository contains a POC implemented for demonstrating following features:
 
 - Implementing microservices in WSO2 MSF4J microservices framework.

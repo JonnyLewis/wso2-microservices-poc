@@ -18,6 +18,7 @@
 
 oc project wso2
 
+echo 'deploying api manager...'
 echo 'creating volumes...'
 oc create -f resources/volumes/persistent-volumes.yaml
 

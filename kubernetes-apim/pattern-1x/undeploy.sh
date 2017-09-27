@@ -16,6 +16,7 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
+echo 'un-deploying api manager...'
 oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l pattern=wso2apim-pattern-1x -n wso2
 
 oc delete configmaps apim-analytics-bin

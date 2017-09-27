@@ -16,4 +16,5 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
+echo 'un-deploying mysql server...'
 oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l app=mysql -n wso2
