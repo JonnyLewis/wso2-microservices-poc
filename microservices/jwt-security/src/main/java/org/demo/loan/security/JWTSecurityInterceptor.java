@@ -46,7 +46,7 @@ public class JWTSecurityInterceptor implements Interceptor {
 
         if (headers != null && headers.containsKey(AUTHORIZATION_HTTP_HEADER)) {
             String authHeader = headers.get(AUTHORIZATION_HTTP_HEADER);
-            logger.info("Auth header: " + authHeader);
+            logger.info(AUTHORIZATION_HTTP_HEADER+ ": " + authHeader);
 
             if (isValid(authHeader)) {
                 return true;
