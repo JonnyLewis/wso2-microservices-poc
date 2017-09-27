@@ -18,7 +18,7 @@ service<http> loanApplicationsService {
     resource createResource (message m) {
 
         json jsonMsg = messages:getJsonPayload(m);
-        system:println("HTTP POST / resource invoked: " + jsons:toString(jsonMsg));
+        system:println("HTTP POST / resource invoked:\n" + jsons:toString(jsonMsg));
 
         http:ClientConnector customerserviceEP = create http:ClientConnector (customersServiceUrl);
         http:ClientConnector creditserviceEP = create http:ClientConnector (creditsServiceUrl);
@@ -36,7 +36,7 @@ service<http> loanApplicationsService {
         loanamount, _ = (float)jsonMsg["amount"];
 
         message response = {};
-        system:println("Invoking HTTP GET " + customersServiceUrl + "/" + customerId);
+        system:println("Find customer: HTTP GET " + customersServiceUrl + "/" + customerId);
         response = customerserviceEP.get("/" + customerId, m);
         int statusCode = http:getStatusCode(response);
         if(statusCode != 200){
@@ -45,7 +45,7 @@ service<http> loanApplicationsService {
         }
         system:println("Valid customer found with customer id " + customerId);
 
-        system:println("Invoking HTTP GET " + creditsServiceUrl + "/" + customerId);
+        system:println("Find credits of customer: HTTP GET " + creditsServiceUrl + "/" + customerId);
         response = creditserviceEP.get("/" + customerId, m);
         statusCode = http:getStatusCode(response);
         if(statusCode != 200){
@@ -66,7 +66,7 @@ service<http> loanApplicationsService {
             reply response;
         }
 
-        system:println("Customer is elligible for the loan");
+        system:println("Create loan application: HTTP POST " + loansServiceUrl + "/\n" + jsons:toString(jsonMsg));
         response = loanserviceEP.post("/", m);
         system:println("Loan application created successfully");
         reply response;
