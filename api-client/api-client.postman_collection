@@ -1,0 +1,122 @@
+{
+	"variables": [],
+	"info": {
+		"name": "WSO2 Microservices POC",
+		"_postman_id": "3a7600df-aff3-1647-017c-07e78125c3b4",
+		"description": "https://github.com/imesh/wso2-microservices-poc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Loan Application",
+			"request": {
+				"url": "https://wso2apim-gw/loan-applications/v1.0/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fname\":\"Shane\",\n\t\"lname\":\"Smith\",\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":10000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Check Loan Application Status",
+			"request": {
+				"url": "https://wso2apim-gw/loan-applications/v1.0/status/Personal2017000001",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Loan Application",
+			"request": {
+				"url": "https://wso2apim-gw/loan-applications/v1.0/approve/Personal2017000001",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Loan Application",
+			"request": {
+				"url": "https://wso2apim-gw/loan-applications/v1.0/reject/Personal2017000001",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Loan Applications",
+			"request": {
+				"url": "https://wso2apim-gw/loan-applications/v1.0/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fname\":\"Shane\",\n\t\"lname\":\"Smith\",\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":10000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
