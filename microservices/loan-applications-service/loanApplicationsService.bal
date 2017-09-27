@@ -21,20 +21,22 @@ service<http> loanApplicationsService {
         system:println("HTTP POST / resource invoked:\n" + jsons:toString(jsonMsg));
 
         http:ClientConnector customerserviceEP = create http:ClientConnector (customersServiceUrl);
-        http:ClientConnector creditserviceEP = create http:ClientConnector (creditsServiceUrl);
+        http:ClientConnector creditServiceEP = create http:ClientConnector (creditsServiceUrl);
         http:ClientConnector loanserviceEP = create http:ClientConnector (loansServiceUrl);
 
         string customerId;
         float income;
         float percentage = 40;
-        float loanamount;
-        float amounteligible;
-        float outstandingBalance;
+        float loanAmount;
+        float availableCreditAmount;
+        float totalAvailableAmount;
+        float totalCreditAmount;
 
         customerId, _ = (string)jsonMsg["customerId"];
         income, _ = (float)jsonMsg["income"];
-        loanamount, _ = (float)jsonMsg["amount"];
+        loanAmount, _ = (float)jsonMsg["amount"];
 
+        // Validate customer
         message response = {};
         system:println("Find customer: HTTP GET " + customersServiceUrl + "/" + customerId);
         response = customerserviceEP.get("/" + customerId, m);
@@ -43,33 +45,59 @@ service<http> loanApplicationsService {
             system:println("Could not find a customer with id " + customerId + ", HTTP status code: " + statusCode);
             reply response;
         }
-        system:println("Valid customer found with customer id " + customerId);
+        system:println("Customer response: " + jsons:toString(messages:getJsonPayload(response)));
 
+        // Validate loan amount eligibility
         system:println("Find credits of customer: HTTP GET " + creditsServiceUrl + "/" + customerId);
-        response = creditserviceEP.get("/" + customerId, m);
+        response = creditServiceEP.get("/" + customerId, m);
         statusCode = http:getStatusCode(response);
         if(statusCode != 200){
             system:println("Error occurred while checking credit balance, HTTP status code: " + statusCode);
             reply response;
         }
-        system:println("Valid credit records found");
-
         json jsonResponse = messages:getJsonPayload(response);
-        outstandingBalance, _ = (float)jsonResponse["outstandingBalance"];
-        amounteligible = ((income-outstandingBalance) * percentage) / 100;
+        system:println("Customer credit response: " + jsons:toString(jsonResponse));
+        totalCreditAmount, _ = (float)jsonResponse.totalCreditAmount;
+        totalAvailableAmount = (income * percentage)/100;
+        availableCreditAmount = totalAvailableAmount - totalCreditAmount;
 
-        system:println("Outstanding balance: " + outstandingBalance);
-        system:println("Amount elligible for the loan: " + amounteligible);
-        if(loanamount  > amounteligible){
-            messages:setStringPayload(response, "Customer is not elligible to get that amount " + loanamount);
+        system:println("Total available credit amount: " + totalAvailableAmount);
+        system:println("Total credit amount: " + totalCreditAmount);
+        system:println("Available credit amount: " + availableCreditAmount);
+
+        if(loanAmount > availableCreditAmount) {
+            json error = { "error": "Loan amount is greater than available credit amount " + availableCreditAmount};
+            system:println(jsons:toString(error));
+
+            messages:setJsonPayload(response, error);
             http:setStatusCode(response, 403);
             reply response;
         }
 
+        // Create loan application
         system:println("Create loan application: HTTP POST " + loansServiceUrl + "/\n" + jsons:toString(jsonMsg));
         response = loanserviceEP.post("/", m);
         jsonResponse = messages:getJsonPayload(response);
         system:println("Loan application created successfully: \n" + jsons:toString(jsonResponse));
+
+        // Create customer credit
+        string referenceNumber;
+        referenceNumber, _ = (string)jsonResponse.referenceNumber;
+        json customerCredit;
+        customerCredit = { "customerId": customerId, "referenceNumber": referenceNumber, "amount": loanAmount};
+        message customerCreditMessage = {};
+        messages:setJsonPayload(customerCreditMessage, customerCredit);
+        string authHeader = messages:getHeader(m, "X-JWT-Assertion");
+        messages:setHeader(customerCreditMessage, "X-JWT-Assertion", authHeader);
+
+        system:println("Create customer credit: HTTP POST " + creditsServiceUrl + "/\n" + jsons:toString(customerCredit));
+        message customerCreditResponse = creditServiceEP.post("/", customerCreditMessage);
+        statusCode = http:getStatusCode(customerCreditResponse);
+        if(statusCode != 200){
+            system:println("Error occurred while creating customer credit, HTTP status code: " + statusCode);
+            reply response;
+        }
+
         reply response;
     }
 
