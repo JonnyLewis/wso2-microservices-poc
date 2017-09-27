@@ -23,7 +23,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ARG USER_HOME=/home/root/
 
 COPY files/ballerina-0.93.zip ${USER_HOME}
-COPY loanProcessService.balx ${USER_HOME}
+COPY loanApplicationsService.balx ${USER_HOME}
 
 WORKDIR ${USER_HOME}
 
@@ -33,4 +33,4 @@ RUN unzip ballerina-0.93.zip \
     && chown -R root ${USER_HOME} \
     && chmod -R 0774 ${USER_HOME}
 
-CMD ballerina-0.93/bin/ballerina run loanProcessService.balx
+CMD ballerina-0.93/bin/ballerina run loanApplicationsService.balx

@@ -15,20 +15,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: loans-integration-deployment
+  name: loan-applications-deployment
   labels:
-    app: loans-integration
+    app: loan-applications
 spec:
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: loans-integration
+        app: loan-applications
     spec:
       containers:
-      - image: loans-integration-service:0.1-SNAPSHOT
-        name: loans-integration
+      - image: loan-applications-service:0.1-SNAPSHOT
+        name: loan-applications
         imagePullPolicy: IfNotPresent
         env:
           -
