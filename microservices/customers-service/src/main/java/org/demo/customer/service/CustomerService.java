@@ -28,7 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.demo.customer.bean.Customer;
 import org.demo.customer.dao.CustomerDAO;
-import org.json.JSONObject;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -39,6 +38,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * This is the Microservice resource class.
@@ -61,6 +61,28 @@ public class CustomerService {
     private static final Log logger = LogFactory.getLog(CustomerService.class);
 
     @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(
+            value = "Return all customers",
+            notes = "Returns HTTP 404 if customer doesn't exist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "Particular exception message")})
+    public Response getCustomer() {
+
+        logger.info("HTTP GET / resource invoked");
+        CustomerDAO customerDAO = new CustomerDAO();
+        List<Customer> customers = customerDAO.getCustomers();
+
+        if (customers != null) {
+            return Response.status(Response.Status.OK).entity(customers).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+        }
+    }
+
+    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(
@@ -74,20 +96,12 @@ public class CustomerService {
 
         logger.info("HTTP GET /{id} resource invoked: [id] " + id);
         CustomerDAO customerDAO = new CustomerDAO();
-        Customer customerBean = customerDAO.getCustomer(id);
+        Customer customer = customerDAO.getCustomer(id);
 
-        if (customerBean != null) {
-            JSONObject returnObject = new JSONObject();
-            returnObject.put("id", customerBean.getId());
-            returnObject.put("firstName", customerBean.getFname());
-            returnObject.put("lastName", customerBean.getLname());
-            returnObject.put("addrress", customerBean.getAddress());
-            returnObject.put("state", customerBean.getState());
-            returnObject.put("postalCode", customerBean.getPostalCode());
-            returnObject.put("country", customerBean.getCountry());
-            return Response.status(Response.Status.OK).entity(returnObject.toString()).build();
+        if (customer != null) {
+            return Response.status(Response.Status.OK).entity(customer).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 

@@ -27,10 +27,46 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerDAO.class);
+
+    /**
+     * Get customers
+     * @return Customers
+     */
+    public List<Customer> getCustomers() {
+        Connection dbConnection = null;
+        PreparedStatement prepStmt = null;
+        ResultSet resultSet = null;
+        try {
+            dbConnection = DatabaseUtil.getDBConnection();
+            prepStmt = dbConnection.prepareStatement(SQLQueries.QUERY_GET_CUSTOMERS);
+            resultSet = prepStmt.executeQuery();
+            List<Customer> customers = new ArrayList<>();
+            while (resultSet.next()) {
+                Customer customer = new Customer();
+                customer.setId(resultSet.getInt("ID"));
+                customer.setFname(resultSet.getString("FNAME"));
+                customer.setLname(resultSet.getString("LNAME"));
+                customer.setAddress(resultSet.getString("ADDRESS"));
+                customer.setState(resultSet.getString("STATE"));
+                customer.setPostalCode(resultSet.getString("POSTAL_CODE"));
+                customer.setCountry(resultSet.getString("COUNTRY"));
+                customers.add(customer);
+            }
+            return customers;
+        } catch (SQLException e) {
+            String errorMessage = "Error occurred while getting customer information";
+            logger.error(errorMessage, e);
+        } finally {
+            DatabaseUtil.closeAllConnections(dbConnection, resultSet, prepStmt);
+        }
+        return null;
+    }
 
     /**
      * Get Customer details
@@ -47,15 +83,15 @@ public class CustomerDAO {
             prepStmt.setString(1, id);
             resultSet = prepStmt.executeQuery();
             if (resultSet.next()) {
-                Customer customerBean = new Customer();
-                customerBean.setId(resultSet.getInt("ID"));
-                customerBean.setFname(resultSet.getString("FNAME"));
-                customerBean.setLname(resultSet.getString("LNAME"));
-                customerBean.setAddress(resultSet.getString("ADDRESS"));
-                customerBean.setState(resultSet.getString("STATE"));
-                customerBean.setPostalCode(resultSet.getString("POSTAL_CODE"));
-                customerBean.setCountry(resultSet.getString("COUNTRY"));
-                return customerBean;
+                Customer customer = new Customer();
+                customer.setId(resultSet.getInt("ID"));
+                customer.setFname(resultSet.getString("FNAME"));
+                customer.setLname(resultSet.getString("LNAME"));
+                customer.setAddress(resultSet.getString("ADDRESS"));
+                customer.setState(resultSet.getString("STATE"));
+                customer.setPostalCode(resultSet.getString("POSTAL_CODE"));
+                customer.setCountry(resultSet.getString("COUNTRY"));
+                return customer;
             }
         } catch (SQLException e) {
             String errorMessage = "Error occurred while getting customer information";
