@@ -20,13 +20,13 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"value": "Bearer defde372-418d-3db3-bd39-8d4fe562e09a",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"fname\":\"Shane\",\n\t\"lname\":\"Smith\",\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":10000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
+					"raw": "{\n\t\"fname\":\"Shane\",\n\t\"lname\":\"Smith\",\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":30000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
 				},
 				"description": ""
 			},
@@ -35,12 +35,12 @@
 		{
 			"name": "Check Loan Application Status",
 			"request": {
-				"url": "https://wso2apim-gw/loan-applications/v1.0/status/Personal2017000001",
+				"url": "https://wso2apim-gw/loan-applications/v1.0/status/PERSONAL2017000002",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
 						"description": ""
 					},
 					{
@@ -57,12 +57,12 @@
 		{
 			"name": "Approve Loan Application",
 			"request": {
-				"url": "https://wso2apim-gw/loan-applications/v1.0/approve/Personal2017000001",
+				"url": "https://wso2apim-gw/loan-applications/v1.0/approve/PERSONAL2017000002",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
 						"description": ""
 					},
 					{
@@ -84,7 +84,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
 						"description": ""
 					},
 					{
@@ -106,13 +106,55 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 517273c3-c86b-3d20-8a5a-5c1f817cf2d4",
+						"value": "Bearer defde372-418d-3db3-bd39-8d4fe562e09a",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"fname\":\"Shane\",\n\t\"lname\":\"Smith\",\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":10000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customers",
+			"request": {
+				"url": "https://wso2apim-gw/customers/v1.0/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer defde372-418d-3db3-bd39-8d4fe562e09a",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"url": "https://wso2apim-gw/customers/v1.0/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer defde372-418d-3db3-bd39-8d4fe562e09a",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fname\": \"Shane\",\n    \"lname\": \"Smith\",\n    \"address\": \"First Street\",\n    \"state\": \"NY\",\n    \"postalCode\": \"12345\",\n    \"country\": \"United States\"\n}"
 				},
 				"description": ""
 			},
