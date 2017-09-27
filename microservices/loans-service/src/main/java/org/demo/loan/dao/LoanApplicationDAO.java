@@ -21,24 +21,28 @@ public class LoanApplicationDAO {
 
     /**
      * Create application
-     * @param applicationBean - Application
+     * @param application - Application
      * @return reference number
      */
-    public String createApplication(ApplicationBean applicationBean) {
+    public String createLoanApplication(ApplicationBean application) {
         Connection dbConnection = null;
         PreparedStatement prepStmt = null;
         ResultSet resultSet = null;
         try {
             dbConnection = DatabaseUtil.getDBConnection();
             prepStmt = dbConnection.prepareStatement(SQLQueries.QUERY_INSERT_APPLICATION);
-            String referenceNumber = generateReferenceNumber(applicationBean.getType());
+            String referenceNumber = generateReferenceNumber(application.getType());
             prepStmt.setString(1, referenceNumber);
-            prepStmt.setString(2, applicationBean.getCustomerId());
-            prepStmt.setString(3, applicationBean.getType());
-            prepStmt.setDouble(4, applicationBean.getAmount());
-            prepStmt.setDouble(5, applicationBean.getPeriod());
+            prepStmt.setString(2, application.getCustomerId());
+            prepStmt.setString(3, application.getType());
+            prepStmt.setDouble(4, application.getAmount());
+            prepStmt.setDouble(5, application.getPeriod());
             prepStmt.setString(6, ApplicationStatus.NEW.toString());
             prepStmt.executeUpdate();
+            ResultSet rs = prepStmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            application.setId(id);
             dbConnection.commit();
             return referenceNumber;
         } catch (SQLException e) {

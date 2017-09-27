@@ -1,5 +1,7 @@
 package org.demo.loan.bean;
 
+import com.google.gson.Gson;
+
 public class ApplicationBean {
 
     private int id;
@@ -64,5 +66,11 @@ public class ApplicationBean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

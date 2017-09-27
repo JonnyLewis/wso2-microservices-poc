@@ -117,11 +117,12 @@ public class LoanService {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "{referenceNumber:HOU2017000012}"),
             @ApiResponse(code = 404, message = "Particular exception message")})
-    public Response create(@ApiParam(value = "Application object", required = true) ApplicationBean application) {
+    public Response create(@ApiParam(value = "Application object", required = true) ApplicationBean loanApplication) {
 
-        logger.info("HTTP POST / resource invoked: \n" + application);
+        logger.info("HTTP POST / resource invoked: \n" + loanApplication);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
-        String referenceNumber = applicationDAO.createApplication(application);
+        String referenceNumber = applicationDAO.createLoanApplication(loanApplication);
+        logger.info("Loan application created: " + loanApplication);
         JSONObject returnObject = new JSONObject();
 
         if (referenceNumber != null) {
