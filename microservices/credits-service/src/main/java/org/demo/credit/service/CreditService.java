@@ -60,18 +60,18 @@ public class CreditService {
             value = "Return Outstanding balance of customer. ",
             notes = "Returns HTTP 500 if any internal error")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "{outstandingbalance:200.00}"),
+            @ApiResponse(code = 200, message = "{outstandingBalance:200.00}"),
             @ApiResponse(code = 500, message = "Particular exception message")})
     public Response getOutstandingBalance(@ApiParam(value = "id", required = true)
                                           @PathParam("id") String id) {
 
-        logger.info("getOutstandingBalance invoked.");
+        logger.info("HTTP GET /{id} resource invoked: [id] " + id);
         CreditDAO creditDAO = new CreditDAO();
         double totalOutstandingBalance = creditDAO.getCustomerOutstandingBalance(id);
 
         JSONObject returnObject = new JSONObject();
-        logger.info("OutstandingBalance: " + totalOutstandingBalance);
-        returnObject.put("outstandingbalance", totalOutstandingBalance);
+        logger.info("Outstanding balance: " + totalOutstandingBalance);
+        returnObject.put("outstandingBalance", totalOutstandingBalance);
         return Response.status(Response.Status.OK).entity(returnObject.toString()).build();
     }
 }

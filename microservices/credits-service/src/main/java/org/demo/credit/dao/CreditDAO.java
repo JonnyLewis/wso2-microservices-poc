@@ -15,7 +15,7 @@ public class CreditDAO {
     private static final Logger logger = LoggerFactory.getLogger(CreditDAO.class);
 
     /**
-     * Get customer's outstnading balance
+     * Get customer's outstanding balance
      * @param id - Customer Id
      * @return - Outstanding Balance
      */
