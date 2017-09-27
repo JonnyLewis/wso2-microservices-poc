@@ -30,12 +30,15 @@ import org.demo.customer.bean.Customer;
 import org.demo.customer.dao.CustomerDAO;
 import org.json.JSONObject;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 /**
  * This is the Microservice resource class.
@@ -80,11 +83,32 @@ public class CustomerService {
             returnObject.put("lastName", customerBean.getLname());
             returnObject.put("addrress", customerBean.getAddress());
             returnObject.put("state", customerBean.getState());
-            returnObject.put("postalCode", customerBean.getPostalcode());
+            returnObject.put("postalCode", customerBean.getPostalCode());
             returnObject.put("country", customerBean.getCountry());
             return Response.status(Response.Status.OK).entity(returnObject.toString()).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("").build();
         }
     }
+
+    @POST
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/")
+    @ApiOperation(
+            value = "Create customer and return customer with id.",
+            notes = "Particular exception message")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "Particular exception message")})
+    public Response createCustomer(@ApiParam(value = "Application object", required = true) Customer customer)
+            throws SQLException {
+
+        logger.info("HTTP POST / resource invoked: \n" + customer);
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.createCustomer(customer);
+        logger.info("Customer created: " + customer);
+        return Response.status(Response.Status.OK).entity(customer).build();
+    }
+
 }

@@ -16,9 +16,11 @@
 
 package org.demo.customer.bean;
 
+import com.google.gson.Gson;
+
 public class Customer {
 
-    private String id;
+    private int id;
     private String fname;
     private String lname;
     private String address;
@@ -26,11 +28,11 @@ public class Customer {
     private String postalCode;
     private String country;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,11 +68,11 @@ public class Customer {
         this.state = state;
     }
 
-    public String getPostalcode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalcode(String postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -80,5 +82,11 @@ public class Customer {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

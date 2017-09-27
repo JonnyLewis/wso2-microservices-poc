@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CustomerDAO {
 
@@ -47,12 +48,12 @@ public class CustomerDAO {
             resultSet = prepStmt.executeQuery();
             if (resultSet.next()) {
                 Customer customerBean = new Customer();
-                customerBean.setId(resultSet.getString("ID"));
+                customerBean.setId(resultSet.getInt("ID"));
                 customerBean.setFname(resultSet.getString("FNAME"));
                 customerBean.setLname(resultSet.getString("LNAME"));
                 customerBean.setAddress(resultSet.getString("ADDRESS"));
                 customerBean.setState(resultSet.getString("STATE"));
-                customerBean.setPostalcode(resultSet.getString("POSTALCODE"));
+                customerBean.setPostalCode(resultSet.getString("POSTAL_CODE"));
                 customerBean.setCountry(resultSet.getString("COUNTRY"));
                 return customerBean;
             }
@@ -63,5 +64,45 @@ public class CustomerDAO {
             DatabaseUtil.closeAllConnections(dbConnection, resultSet, prepStmt);
         }
         return null;
+    }
+
+    /**
+     * Create customer
+     *
+     * @param customer - Customer
+     */
+    public void createCustomer(Customer customer) throws SQLException {
+        Connection dbConnection = null;
+        PreparedStatement prepStmt = null;
+        ResultSet resultSet = null;
+        try {
+            dbConnection = DatabaseUtil.getDBConnection();
+            prepStmt = dbConnection.prepareStatement(SQLQueries.QUERY_INSERT_CUSTOMER, Statement.RETURN_GENERATED_KEYS);
+            prepStmt.setString(1, customer.getFname());
+            prepStmt.setString(2, customer.getLname());
+            prepStmt.setString(3, customer.getAddress());
+            prepStmt.setString(4, customer.getState());
+            prepStmt.setString(5, customer.getPostalCode());
+            prepStmt.setString(6, customer.getCountry());
+            prepStmt.executeUpdate();
+            ResultSet rs = prepStmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            customer.setId(id);
+            dbConnection.commit();
+        } catch (SQLException e) {
+            try {
+                if (dbConnection != null) {
+                    dbConnection.rollback();
+                }
+            } catch (SQLException e1) {
+                logger.error("Error occurred while rolling back customer credit create transaction");
+            }
+            String errorMessage = "Error occurred while creating customer credit";
+            logger.error(errorMessage, e);
+            throw e;
+        } finally {
+            DatabaseUtil.closeAllConnections(dbConnection, resultSet, prepStmt);
+        }
     }
 }

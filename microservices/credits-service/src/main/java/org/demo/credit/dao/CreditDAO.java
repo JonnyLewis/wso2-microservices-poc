@@ -65,7 +65,6 @@ public class CreditDAO {
      * Create customer credit record
      *
      * @param customerCredit - Customer credit
-     * @return id
      */
     public void createCustomerCredit(CustomerCredit customerCredit) throws SQLException {
         Connection dbConnection = null;
