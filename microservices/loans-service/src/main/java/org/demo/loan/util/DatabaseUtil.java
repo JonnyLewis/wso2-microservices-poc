@@ -4,43 +4,32 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 
 /**
  * Database utility
  */
 public class DatabaseUtil {
 
-    private static Log logger = LogFactory.getLog(DatabaseUtil.class);
-    private static DataSource jdbcds = loadUserStoreSpacificDataSoruce();
+    private static final Log logger = LogFactory.getLog(DatabaseUtil.class);
+    private static final DataSource dataSource = loadUserStoreSpacificDataSoruce();
 
     /**
      * Get database connection.
      * @return SQL connection
-     * @throws java.sql.SQLException
+     * @throws java.sql.SQLException SQL exception
      */
     public static Connection getDBConnection() throws SQLException {
-        Connection dbConnection = getJDBCDataSource().getConnection();
+        Connection dbConnection = dataSource.getConnection();
         dbConnection.setAutoCommit(false);
         if (dbConnection.getTransactionIsolation() != Connection.TRANSACTION_READ_COMMITTED) {
             dbConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
         }
         return dbConnection;
-    }
-
-    /**
-     * Get JDBC data source.
-     * @return datasource
-     */
-    private static DataSource getJDBCDataSource() {
-        if (jdbcds == null) {
-            jdbcds = loadUserStoreSpacificDataSoruce();
-        }
-        return jdbcds;
     }
 
     /**
@@ -54,11 +43,6 @@ public class DatabaseUtil {
         String dbuser = System.getenv("DB_USER");
         String dbpassword = System.getenv("DB_PASSWORD");
 
-        logger.info("jdbcdriver: " + jdbcdriver);
-        logger.info("jdbcurl: " + jdbcurl);
-        logger.info("dbuser: " + dbuser);
-        logger.info("dbpassword: " + dbpassword);
-
         PoolProperties poolProperties = new PoolProperties();
         poolProperties.setDriverClassName(jdbcdriver);
         poolProperties.setUrl(jdbcurl);
@@ -67,14 +51,6 @@ public class DatabaseUtil {
         poolProperties.setTestOnBorrow(true);
         poolProperties.setValidationQuery("SELECT 1");
 
-//        PoolProperties poolProperties = new PoolProperties();
-//        poolProperties.setDriverClassName("com.mysql.jdbc.Driver");
-//        poolProperties.setUrl("jdbc:mysql://localhost:3306/loandb");
-//        poolProperties.setUsername("root");
-//        poolProperties.setPassword("root");
-//        poolProperties.setTestOnBorrow(true);
-//        poolProperties.setValidationQuery("SELECT 1");
-
         return new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
     }
 
@@ -82,7 +58,7 @@ public class DatabaseUtil {
      * Close DB connection
      * @param dbConnection sql connection
      */
-    public static void closeConnection(Connection dbConnection) {
+    private static void closeConnection(Connection dbConnection) {
 
         if (dbConnection != null) {
             try {

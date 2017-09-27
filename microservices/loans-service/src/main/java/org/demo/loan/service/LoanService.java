@@ -60,7 +60,7 @@ import java.util.List;
 @Path("/")
 public class LoanService {
 
-    private static Log logger = LogFactory.getLog(LoanService.class);
+    private static final Log logger = LogFactory.getLog(LoanService.class);
 
     @GET
     @Path("/")
@@ -74,7 +74,7 @@ public class LoanService {
             @ApiResponse(code = 500, message = "Particular exception message") })
     public Response getAllLoanApplication() {
 
-        logger.info("Get all loan application invoked");
+        logger.info("HTTP GET / resource invoked");
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
         List<ApplicationBean> applicationBeanList = applicationDAO.getAllLaonApplications();
 
@@ -95,7 +95,7 @@ public class LoanService {
     public Response status(@ApiParam(value = "referenceNumber", required = true)
                            @PathParam("referenceNumber") String referenceNumber) {
 
-        logger.info("Get loan status invoked for reference number: " + referenceNumber);
+        logger.info("HTTP GET /status/{referenceNumber} resource invoked: [referenceNumber] " + referenceNumber);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
         String status = applicationDAO.getApplicationStatus(referenceNumber);
         JSONObject returnObject = new JSONObject();
@@ -115,20 +115,20 @@ public class LoanService {
             value = "Create loan application and return loan reference number. ",
             notes = "Returns HTTP 404 if user doesn't exist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "{referencenumber:HOU2017000012}"),
+            @ApiResponse(code = 200, message = "{referenceNumber:HOU2017000012}"),
             @ApiResponse(code = 404, message = "Particular exception message")})
     public Response create(@ApiParam(value = "Application object", required = true) ApplicationBean application) {
 
-        logger.info("Application creation invoked.");
+        logger.info("HTTP POST / resource invoked: \n" + application);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
         String referenceNumber = applicationDAO.createApplication(application);
         JSONObject returnObject = new JSONObject();
 
         if (referenceNumber != null) {
-            returnObject.put("referencenumber", referenceNumber);
+            returnObject.put("referenceNumber", referenceNumber);
             return Response.status(Response.Status.OK).entity(returnObject.toString()).build();
         } else {
-            returnObject.put("referencenumber", "");
+            returnObject.put("referenceNumber", "");
             return Response.status(Response.Status.NOT_FOUND).entity(returnObject.toString()).build();
         }
     }
@@ -144,7 +144,7 @@ public class LoanService {
     public Response approve(@ApiParam(value = "referenceNumber", required = true)
                             @PathParam("referenceNumber") String referenceNumber) {
 
-        logger.info("Application approve invoked for reference number: " + referenceNumber);
+        logger.info("HTTP POST /approve/{referenceNumber} resource invoked: [referenceNumber] " + referenceNumber);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
         boolean status = applicationDAO.UpdateStatus(referenceNumber, ApplicationStatus.APPROVED.toString());
 
@@ -166,7 +166,7 @@ public class LoanService {
     public Response reject(@ApiParam(value = "referenceNumber", required = true)
                            @PathParam("referenceNumber") String referenceNumber) {
 
-        logger.info("Application reject invoked for reference number: " + referenceNumber);
+        logger.info("HTTP POST /reject/{referenceNumber} resource invoked: [referenceNumber] " + referenceNumber);
         LoanApplicationDAO applicationDAO = new LoanApplicationDAO();
         boolean status = applicationDAO.UpdateStatus(referenceNumber, ApplicationStatus.REJECTED.toString());
 

@@ -43,7 +43,9 @@ public class LoanApplicationDAO {
             return referenceNumber;
         } catch (SQLException e) {
             try {
-                dbConnection.rollback();
+                if(dbConnection != null) {
+                    dbConnection.rollback();
+                }
             } catch (SQLException e1) {
                 logger.error("Error occurred while rolling back application create transaction");
             }
@@ -56,8 +58,8 @@ public class LoanApplicationDAO {
     }
 
     private String generateReferenceNumber(String type) {
-        int refnopostfix = getMaxApplicationId() + 1;
-        return type + Calendar.getInstance().get(Calendar.YEAR) + String.format("%0" + 6 + "d", refnopostfix);
+        int postfix = getMaxApplicationId() + 1;
+        return type.toUpperCase() + Calendar.getInstance().get(Calendar.YEAR) + String.format("%0" + 6 + "d", postfix);
     }
 
     /**
@@ -165,7 +167,9 @@ public class LoanApplicationDAO {
             return true;
         } catch (SQLException e) {
             try {
-                dbConnection.rollback();
+                if(dbConnection != null) {
+                    dbConnection.rollback();
+                }
             } catch (SQLException e1) {
                 logger.error("Error occurred while rolling back application status update");
             }
