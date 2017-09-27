@@ -37,7 +37,7 @@ public class CustomerDAO {
                 customerBean.setAddress(resultSet.getString("ADDRESS"));
                 customerBean.setState(resultSet.getString("STATE"));
                 customerBean.setPostalcode(resultSet.getString("POSTALCODE"));
-                //customerBean.setCountry(resultSet.getString("COUNTRY"));
+                customerBean.setCountry(resultSet.getString("COUNTRY"));
                 return customerBean;
             }
         } catch (SQLException e) {

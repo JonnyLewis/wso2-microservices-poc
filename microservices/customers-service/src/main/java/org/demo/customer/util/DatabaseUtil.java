@@ -4,27 +4,28 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 
 /**
  * Database utility
  */
 public class DatabaseUtil {
 
-    private static Log logger = LogFactory.getLog(DatabaseUtil.class);
-    private static DataSource jdbcds = loadUserStoreSpacificDataSoruce();
+    private static final Log logger = LogFactory.getLog(DatabaseUtil.class);
+    private static final DataSource dataSource = createDataSource();
 
     /**
      * Get database connection.
      * @return SQL connection
-     * @throws SQLException
+     * @throws SQLException SQL exception
      */
     public static Connection getDBConnection() throws SQLException {
-        Connection dbConnection = getJDBCDataSource().getConnection();
+
+        Connection dbConnection = dataSource.getConnection();
         dbConnection.setAutoCommit(false);
         if (dbConnection.getTransactionIsolation() != java.sql.Connection.TRANSACTION_READ_COMMITTED) {
             dbConnection.setTransactionIsolation(java.sql.Connection.TRANSACTION_READ_COMMITTED);
@@ -33,47 +34,23 @@ public class DatabaseUtil {
     }
 
     /**
-     * Get JDBC data source.
+     * Read JDBC properties via env variables and create datasource.
      * @return datasource
      */
-    private static DataSource getJDBCDataSource() {
-        if (jdbcds == null) {
-            jdbcds = loadUserStoreSpacificDataSoruce();
-        }
-        return jdbcds;
-    }
+    private static DataSource createDataSource() {
 
-    /**
-     * Load user store properties from config and create datasource.
-     * @return datasource
-     */
-    private static DataSource loadUserStoreSpacificDataSoruce() {
-
-        String jdbcdriver = System.getenv("JDBC_DRIVER");
-        String jdbcurl = System.getenv("JDBC_URL");
-        String dbuser = System.getenv("DB_USER");
-        String dbpassword = System.getenv("DB_PASSWORD");
-
-        logger.info("jdbcdriver: " + jdbcdriver);
-        logger.info("jdbcurl: " + jdbcurl);
-        logger.info("dbuser: " + dbuser);
-        logger.info("dbpassword: " + dbpassword);
+        String jdbcDriver = System.getenv("JDBC_DRIVER");
+        String jdbcUrl = System.getenv("JDBC_URL");
+        String dbUser = System.getenv("DB_USER");
+        String dbPassword = System.getenv("DB_PASSWORD");
 
         PoolProperties poolProperties = new PoolProperties();
-        poolProperties.setDriverClassName(jdbcdriver);
-        poolProperties.setUrl(jdbcurl);
-        poolProperties.setUsername(dbuser);
-        poolProperties.setPassword(dbpassword);
+        poolProperties.setDriverClassName(jdbcDriver);
+        poolProperties.setUrl(jdbcUrl);
+        poolProperties.setUsername(dbUser);
+        poolProperties.setPassword(dbPassword);
         poolProperties.setTestOnBorrow(true);
         poolProperties.setValidationQuery("SELECT 1");
-
-        //                PoolProperties poolProperties = new PoolProperties();
-        //                poolProperties.setDriverClassName("com.mysql.jdbc.Driver");
-        //                poolProperties.setUrl("jdbc:mysql://localhost:3306/customerdb");
-        //                poolProperties.setUsername("root");
-        //                poolProperties.setPassword("root");
-        //                poolProperties.setTestOnBorrow(true);
-        //                poolProperties.setValidationQuery("SELECT 1");
 
         return new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
     }
@@ -82,7 +59,7 @@ public class DatabaseUtil {
      * Close DB connection
      * @param dbConnection sql connection
      */
-    public static void closeConnection(Connection dbConnection) {
+    private static void closeConnection(Connection dbConnection) {
 
         if (dbConnection != null) {
             try {
@@ -95,8 +72,8 @@ public class DatabaseUtil {
     }
 
     /**
-     * Close resultset.
-     * @param rs SQL resultset
+     * Close result set.
+     * @param rs SQL result set
      */
     private static void closeResultSet(ResultSet rs) {
 
@@ -110,8 +87,8 @@ public class DatabaseUtil {
     }
 
     /**
-     * Close prepaedstatement.
-     * @param preparedStatement SQL preparedstatememt
+     * Close prepaed statement.
+     * @param preparedStatement SQL prepared statement
      */
     private static void closeStatement(PreparedStatement preparedStatement) {
 
@@ -127,7 +104,7 @@ public class DatabaseUtil {
 
     /**
      * Close number of prepared statement.
-     * @param prepStmts all prepaired statements
+     * @param prepStmts all prepared statements
      */
     private static void closeStatements(PreparedStatement... prepStmts) {
 
@@ -141,7 +118,7 @@ public class DatabaseUtil {
     /**
      * Close all sql connections and prepared statements
      * @param dbConnection sql connection
-     * @param prepStmts prepairedstatements
+     * @param prepStmts prepared statements
      */
     public static void closeAllConnections(Connection dbConnection, PreparedStatement... prepStmts) {
 
@@ -150,10 +127,10 @@ public class DatabaseUtil {
     }
 
     /**
-     * Close all sql connections, resultset and prepared statements
+     * Close all sql connections, result set and prepared statements
      * @param dbConnection sql connection
-     * @param rs resultset
-     * @param prepStmts all prepaired statements
+     * @param rs result set
+     * @param prepStmts all prepared statements
      */
     public static void closeAllConnections(Connection dbConnection, ResultSet rs, PreparedStatement... prepStmts) {
 
@@ -164,10 +141,10 @@ public class DatabaseUtil {
 
     public static void closeAllConnections(Connection dbConnection, ResultSet rs1, ResultSet rs2,
             PreparedStatement... prepStmts) {
+
         closeResultSet(rs1);
         closeResultSet(rs1);
         closeStatements(prepStmts);
         closeConnection(dbConnection);
     }
-
 }

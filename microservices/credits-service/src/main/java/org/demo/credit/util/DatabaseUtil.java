@@ -34,7 +34,7 @@ public class DatabaseUtil {
     }
 
     /**
-     * Load user store properties from config and create datasource.
+     * Read JDBC properties via env variables and create datasource.
      * @return datasource
      */
     private static DataSource createDataSource() {

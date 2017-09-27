@@ -55,7 +55,8 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class CustomerService {
 
-    private static Log logger = LogFactory.getLog(CustomerService.class);
+    private static final Log logger = LogFactory.getLog(CustomerService.class);
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,7 +64,7 @@ public class CustomerService {
             value = "Return customer details for the give id ",
             notes = "Returns HTTP 404 if customer doesn't exist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "{id:808812,firstname:Johan,..}"),
+            @ApiResponse(code = 200, message = "{id:808812,firstName:Johan,..}"),
             @ApiResponse(code = 404, message = "Particular exception message")})
     public Response getCustomer(@ApiParam(value = "id", required = true)
                                 @PathParam("id") String id) {
@@ -75,12 +76,12 @@ public class CustomerService {
         if (customerBean != null) {
             JSONObject returnObject = new JSONObject();
             returnObject.put("id", customerBean.getId());
-            returnObject.put("firstname", customerBean.getFname());
-            returnObject.put("lastname", customerBean.getLname());
+            returnObject.put("firstName", customerBean.getFname());
+            returnObject.put("lastName", customerBean.getLname());
             returnObject.put("addrress", customerBean.getAddress());
             returnObject.put("state", customerBean.getState());
-            returnObject.put("postalcode", customerBean.getPostalcode());
-            //returnObject.put("country", customerBean.getCountry());
+            returnObject.put("postalCode", customerBean.getPostalcode());
+            returnObject.put("country", customerBean.getCountry());
             return Response.status(Response.Status.OK).entity(returnObject.toString()).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("").build();
