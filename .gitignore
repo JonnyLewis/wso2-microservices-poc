@@ -4,3 +4,6 @@ dependency-reduced-pom.xml
 *.iml
 *.balx
 *.zip
+*.prefs
+.project
+.classpath
