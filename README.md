@@ -125,6 +125,7 @@ The following diagram illustrates the solution architecture of this POC:
     ````bash
     git clone https://github.com/imesh/wso2-apim-cli
     cd wso2-apim-cli
+    go get github.com/urfave/cli
     go build .
     ````
 
