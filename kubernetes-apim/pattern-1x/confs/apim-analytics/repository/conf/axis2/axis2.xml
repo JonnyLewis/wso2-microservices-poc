@@ -623,10 +623,10 @@
                     is deemed to have left the cluster, it will be detected by the Group Membership
                     Service (GMS) using a TCP ping mechanism.
         -->
-        <parameter name="membershipScheme">kubernetes</parameter>
-	    <parameter name="membershipSchemeClassName">org.wso2.carbon.membership.scheme.kubernetes.KubernetesMembershipScheme</parameter>
-        <parameter name="KUBERNETES_SERVICES">wso2apim-analytics</parameter>
-        <parameter name="KUBERNETES_NAMESPACE">wso2</parameter>
+        <!--<parameter name="membershipScheme">kubernetes</parameter>-->
+	    <!--<parameter name="membershipSchemeClassName">org.wso2.carbon.membership.scheme.kubernetes.KubernetesMembershipScheme</parameter>-->
+        <!--<parameter name="KUBERNETES_SERVICES">wso2apim-analytics</parameter>-->
+        <!--<parameter name="KUBERNETES_NAMESPACE">wso2</parameter>-->
         <!--<parameter name="licenseKey">xxx</parameter>-->
         <!--<parameter name="mgtCenterURL">http://localhost:8081/mancenter/</parameter>-->
 
