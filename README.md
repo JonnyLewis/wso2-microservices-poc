@@ -1,6 +1,15 @@
 # WSO2 Microservices POC
 
-This repository contains a POC implemented for demonstrating following features:
+This repository contains a POC implemented with WSO2 Microservices Framework for Java (MSF4J), Ballerina and 
+WSO2 API Manager on demonstrating how an enterprise solution can be developed according to 
+[Microservices](https://martinfowler.com/articles/microservices.html) Architecture.
+
+## Solution Architecture
+
+The following diagram illustrates the solution architecture of this POC:
+![](images/solution-architecture.png)
+
+## Features
 
 - Implementing microservices in WSO2 MSF4J microservices framework.
 - The process of building Docker images for microservices.
@@ -10,11 +19,6 @@ This repository contains a POC implemented for demonstrating following features:
 - Wiring database connections, integrations between microservices and integration services.
 - Exposing microservices and integration services via WSO2 API Manager.
 - Deploying microservices, integration services and WSO2 API Manager on OpenShift.
-
-## Solution Architecture
-
-The following diagram illustrates the solution architecture of this POC:
-![](images/solution-architecture.png)
 
 ## Getting Started
 
