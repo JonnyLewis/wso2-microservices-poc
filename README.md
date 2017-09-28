@@ -162,7 +162,7 @@ This repository contains a POC implemented for demonstrating following features:
 
 27. Copy the "Customer ID" from the above response, add it to the body of the "Create Loan Application" request and invoke.
 
-28. Now login to the OpenShift console and view the Loan Applications pod log.
+28. Now login to the OpenShift console and view the Loan Applications container log.
 
 ## Remove Deployment
 
