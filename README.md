@@ -1,8 +1,8 @@
 # WSO2 Microservices POC
 
-This repository contains a POC implemented with WSO2 Microservices Framework for Java (MSF4J), Ballerina and 
-WSO2 API Manager on demonstrating how an enterprise solution can be developed according to 
-[Microservices](https://martinfowler.com/articles/microservices.html) Architecture.
+This repository contains a POC implemented with [WSO2 Microservices Framework for Java (MSF4J)](http://wso2.com/products/microservices-framework-for-java/), 
+[Ballerinalang](https://ballerinalang.org) and [WSO2 API Manager](https://wso2.com/api-management/) on demonstrating 
+how an enterprise solution can be developed according to [Microservices](https://martinfowler.com/articles/microservices.html) Architecture.
 
 ## Solution Architecture
 
