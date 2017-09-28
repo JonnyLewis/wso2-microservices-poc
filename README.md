@@ -3,12 +3,20 @@
 This repository contains a POC implemented for demonstrating following features:
 
 - Implementing microservices in WSO2 MSF4J microservices framework.
+- The process of building Docker images for microservices.
 - Securing microservices with JWT.
 - Implementing integration services with [Ballerinalang](https://ballerinalang.org).
-- Exposing microservices and integration services via WSO2 API Manager 2.1.0.
+- The process of building Docker images for integration services.
+- Wiring database connections, integrations between microservices and integration services.
+- Exposing microservices and integration services via WSO2 API Manager.
 - Deploying microservices, integration services and WSO2 API Manager on OpenShift.
 
-# Getting Started
+## Solution Architecture
+
+The following diagram illustrates the solution architecture of this POC:
+![](images/solution-architecture.png)
+
+## Getting Started
 
 1. Clone this repository and switch to the latest tag:
 
@@ -186,7 +194,7 @@ This repository contains a POC implemented for demonstrating following features:
     {"customerId":"1","referenceNumber":"PERSONAL2017000001","amount":40000.0}
     ````
 
-## Remove Deployment
+## Removing Deployment
 
 - Execute the ```undeploy.sh``` script found in the root folder for undeploying all OpenShift resources.
 
