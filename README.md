@@ -110,7 +110,7 @@ The following diagram illustrates the solution architecture of this POC:
     ./deploy.sh
     ````
 
-16. Add /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is 192.168.99.101:
+16. Add /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is ```192.168.99.101```:
 
     ````bash
     192.168.99.101 wso2apim
@@ -118,7 +118,7 @@ The following diagram illustrates the solution architecture of this POC:
     192.168.99.101 wso2apim-gw
     ````
 
-    The ````minishift ip``` command to can be used to find the IP address of Minishift VM.
+    The ```minishift ip``` command to can be used to find the IP address of Minishift VM.
 
 17. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang:
 
@@ -137,7 +137,7 @@ The following diagram illustrates the solution architecture of this POC:
     export DST_WSO2_APIM_PASSWORD=admin
     ````
 
-19. Copy ```Customers API``` and ```Loan Applications API``` zip files found in ```apis\``` folder to the ```export\``` folder of WSO2 API Manager CLI and execute the following command to import them to the WSO2 API Manager:
+19. Copy ```Customers API``` and ```Loan Applications API``` zip files found in ```[wso2-microservices-poc]\apis\``` folder to the ```[wso2-apim-cli]\export\``` folder and execute the following command to import those to the WSO2 API Manager:
 
     ````bash
     cp [wso2-microservices-poc]/apis/*.zip [wso2-apim-cli]/export/
