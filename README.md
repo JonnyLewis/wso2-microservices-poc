@@ -162,7 +162,29 @@ This repository contains a POC implemented for demonstrating following features:
 
 27. Copy the "Customer ID" from the above response, add it to the body of the "Create Loan Application" request and invoke.
 
-28. Now login to the OpenShift console and view the Loan Applications container log.
+28. Now login to the OpenShift console and view the Loan Applications container log:
+
+    ````bash
+    HTTP GET /status/{referenceNumber} resource invoked: [referenceNumber] PERSONAL2017000002
+    Invoking HTTP GET http://loans:8080/status/PERSONAL2017000002
+    HTTP GET / resource invoked
+    Invoking HTTP GET http://loans:8080/
+    HTTP POST / resource invoked:
+    {"type":"Personal","customerId":"1","amount":40000.0,"income":200000.0,"period":12}
+    Find customer: HTTP GET http://customers:8080/1
+    Customer response: {"id":1,"fname":"Shane","lname":"Smith","address":"First Street","state":"NY","postalCode":"12345","country":"United States"}
+    Find credits of customer: HTTP GET http://credits:8080/1
+    Customer credit response: {"totalCreditAmount":0.0}
+    Total available credit amount: 80000.0
+    Total credit amount: 0.0
+    Available credit amount: 80000.0
+    Create loan application: HTTP POST http://loans:8080/
+    {"type":"Personal","customerId":"1","amount":40000.0,"income":200000.0,"period":12}
+    Loan application created successfully: 
+    {"referenceNumber":"PERSONAL2017000001"}
+    Create customer credit: HTTP POST http://credits:8080/
+    {"customerId":"1","referenceNumber":"PERSONAL2017000001","amount":40000.0}
+    ````
 
 ## Remove Deployment
 
