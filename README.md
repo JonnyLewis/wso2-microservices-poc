@@ -16,14 +16,14 @@ This repository contains a POC implemented for demonstrating following features:
    git clone https://github.com/imesh/wso2-microservices-poc.git
    ````
 
-2. Download Oracle JDK 1.8.144 distribution and copy it to the following folders:
+2. Download [Oracle JDK 1.8.144](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) Linux 64 bit distribution and copy it to the following folders:
 
    ````bash
    cp /path/to/jdk-8u144-linux-x64.tar.gz kubernetes-apim/base/apim/files/
    cp /path/to/jdk-8u144-linux-x64.tar.gz kubernetes-apim/base/analytics/files/
    ````
 
-3. Download MySQL Connector for Java 5.1.34 and copy it to the following folders:
+3. Download [MySQL Connector for Java 5.1.34](https://downloads.mysql.com/archives/c-j/) distribution and copy it's JAR file to the following folders:
 
    ````bash
    cp mysql-connector-java-5.1.34-bin.jar kubernetes-apim/base/apim/files/
