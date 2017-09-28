@@ -101,3 +101,75 @@ This repository contains a POC implemented for demonstrating following features:
     ````bash
     ./deploy.sh
     ````
+
+16. Add /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is 192.168.99.101:
+
+    ````bash
+    192.168.99.101 wso2apim
+    192.168.99.101 wso2apim-analytics
+    192.168.99.101 wso2apim-gw
+    ````
+
+    The ````minishift ip``` command to can be used to find the IP address of Minishift VM.
+
+17. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang:
+
+    ````bash
+    git clone https://github.com/imesh/wso2-apim-cli
+    cd wso2-apim-cli
+    go build .
+    ````
+
+18. Expose following environment variables:
+
+    ````bash
+    export DST_WSO2_APIM_ENDPOINT=https://wso2apim
+    export DST_WSO2_APIM_GATEWAY_ENDPOINT=https://wso2apim-gw
+    export DST_WSO2_APIM_USERNAME=admin
+    export DST_WSO2_APIM_PASSWORD=admin
+    ````
+
+19. Copy ```Customers API``` and ```Loan Applications API``` zip files found in ```apis\``` folder to the ```export\``` folder of WSO2 API Manager CLI and execute the following command to import them to the WSO2 API Manager:
+
+    ````bash
+    cp [wso2-microservices-poc]/apis/*.zip [wso2-apim-cli]/export/
+    cd [wso2-apim-cli]
+    ./wso2-apim-cli import
+    ````
+
+    ````bash
+    API CustomersAPI-v1.0.zip imported successfully
+    API LoanApplicationsAPI-v1.0.zip imported successfully
+    Client id and client secret obtained
+    Access token generated: 3a5b71d6-98ea-3fef-82df-6ce5c6f20df9
+    API CustomersAPI-v1.0 published successfully
+    API LoanApplicationsAPI-v1.0 published successfully
+    ````
+
+20. Download and install [Postman](https://www.getpostman.com/) API client application.
+
+21. Import Postman project found in ```[wso2-microservices-poc]/postman/``` folder into Postman.
+
+22. Log into WSO2 API Manager using the URL [https://wso2apim/store](https://wso2apim/store) and credentials admin/admin.
+
+23. Subscribe to both Customers API and Loan Applications API.
+
+24. Navigate to "Applications" -> "Default Application" -> "Production Keys" and press the "Generate keys" button.
+
+25. Copy the "Access Token" generated and update it in the Postman project under "Authorization" header in each request.
+
+26. Invoke the "Create Customer" request via Postman.
+
+27. Copy the "Customer ID" from the above response, add it to the body of the "Create Loan Application" request and invoke.
+
+28. Now login to the OpenShift console and view the Loan Applications pod log.
+
+## Remove Deployment
+
+- Execute the ```undeploy.sh``` script found in the root folder for undeploying all OpenShift resources.
+
+- If MiniShift is used, execute the below command to remove the temporary data folders used for persistence volumes:
+
+  ````bash
+  minishift ssh "sudo rm -rf /tmp/data/"
+  ````
