@@ -6,6 +6,7 @@ This repository contains a POC implemented for demonstrating following features:
 - Securing microservices with JWT.
 - Implementing integration services with [Ballerinalang](https://ballerinalang.org).
 - Exposing microservices and integration services via WSO2 API Manager 2.1.0.
+- Deploying microservices, integration services and WSO2 API Manager on OpenShift.
 
 # Getting Started
 
@@ -66,35 +67,35 @@ This repository contains a POC implemented for demonstrating following features:
   
 10. Build WSO2 API Manager and WSO2 API Analytics Docker images using the below command:
 
-   ````bash
-   cd kubernetes-apim/base/
-   ./build.sh
-   ````
+    ````bash
+    cd kubernetes-apim/base/
+    ./build.sh
+    ````
 
 11. If an existing OpenShift cluster is used copy the above Docker images into the OpenShift nodes or to a Docker registry:
    
-   Copy the above Docker images over to the OpenShift Nodes. As an example use docker save command to create a tar file of the required image, scp the tar file to each node, and then use docker load command to load the image from the copied tar file on the nodes. Alternatively,if a private Docker registry is used, transfer the Docker images there and update the Docker image tags in the deployment files.
+    Copy the above Docker images over to the OpenShift Nodes. As an example use docker save command to create a tar file of the required image, scp the tar file to each node, and then use docker load command to load the image from the copied tar file on the nodes. Alternatively,if a private Docker registry is used, transfer the Docker images there and update the Docker image tags in the deployment files.
 
 12. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
 
-   ````bash
-   oc create user admin --full-name=admin
-   oc adm policy add-cluster-role-to-user cluster-admin admin
-   ````
+    ````bash
+    oc create user admin --full-name=admin
+    oc adm policy add-cluster-role-to-user cluster-admin admin
+    ````
 
 13. Create a new project called wso2:
 
-   ````bash
-   oc new-project wso2 --description="WSO2" --display-name="wso2"
-   ````
+    ````bash
+    oc new-project wso2 --description="WSO2" --display-name="wso2"
+    ````
    
 14. Create a service account called wso2svcacct in wso2 project and assign anyuid security context constraint:
-   
-   ````bash
-   oc create serviceaccount wso2svcacct
-   oc adm policy add-scc-to-user anyuid -z wso2svcacct -n wso2
-   ````
-   
+
+    ````bash
+    oc create serviceaccount wso2svcacct
+    oc adm policy add-scc-to-user anyuid -z wso2svcacct -n wso2
+    ````
+
 15. Deploy the MySQL server, microservices, and WSO2 API Manager using the ```deploy.sh``` script found in the root folder:
 
     ````bash
