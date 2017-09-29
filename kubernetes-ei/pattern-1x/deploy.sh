@@ -37,3 +37,4 @@ sleep 10s
 
 echoBold 'deploying wso2 ei/bps...'
 oc create -f resources/bps
+oc create -f resources/routes
