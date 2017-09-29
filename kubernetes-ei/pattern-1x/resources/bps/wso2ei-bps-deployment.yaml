@@ -51,9 +51,13 @@ spec:
           mountPath: /home/wso2user/wso2ei-6.1.1-conf/bps/conf-tomcat
         - name: wso2ei-bps-conf-epr
           mountPath: /home/wso2user/wso2ei-6.1.1-conf/bps/conf-epr
+        - name: wso2ei-bps-conf-bpmn-explorer
+          mountPath: /home/wso2user/wso2ei-6.1.1-conf/bps/conf-bpmn-explorer
+        - name: wso2ei-bps-conf-humantask-explorer
+          mountPath: /home/wso2user/wso2ei-6.1.1-conf/bps/conf-humantask-explorer
         livenessProbe:
           tcpSocket:
-            port: 9443
+            port: 9445
           initialDelaySeconds: 300
           periodSeconds: 20
       serviceAccountName: wso2svcacct
@@ -76,3 +80,9 @@ spec:
       - name: wso2ei-bps-conf-epr
         configMap:
           name: wso2ei-bps-conf-epr
+      - name: wso2ei-bps-conf-bpmn-explorer
+        configMap:
+          name: wso2ei-bps-conf-bpmn-explorer
+      - name: wso2ei-bps-conf-humantask-explorer
+        configMap:
+          name: wso2ei-bps-conf-humantask-explorer

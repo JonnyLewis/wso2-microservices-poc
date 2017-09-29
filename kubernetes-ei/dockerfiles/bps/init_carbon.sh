@@ -68,6 +68,14 @@ if [ -e ${CARBON_HOME}-conf/bps/conf-epr ]; then
    cp -v ${CARBON_HOME}-conf/bps/conf-epr/* ${CARBON_HOME}/wso2/business-process/repository/conf/epr/
 fi
 
+if [ -e ${CARBON_HOME}-conf/bps/conf-bpmn-explorer ]; then
+   cp -v ${CARBON_HOME}-conf/bps/conf-bpmn-explorer/* ${CARBON_HOME}/wso2/business-process/repository/deployment/server/jaggeryapps/bpmn-explorer/config/
+fi
+
+if [ -e ${CARBON_HOME}-conf/bps/conf-humantask-explorer ]; then
+   cp -v ${CARBON_HOME}-conf/bps/conf-humantask-explorer/* ${CARBON_HOME}/wso2/business-process/repository/deployment/server/jaggeryapps/humantask-explorer/config/
+fi
+
 # overwrite localMemberHost element value in axis2.xml with container ip
 export local_docker_ip=$(ip route get 1 | awk '{print $NF;exit}')
 axi2_xml_location=${CARBON_HOME}/wso2/business-process/conf/axis2/axis2.xml

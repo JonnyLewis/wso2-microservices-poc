@@ -30,6 +30,8 @@ oc create configmap wso2ei-bps-conf-axis2 --from-file=conf/bps/conf/axis2/
 oc create configmap wso2ei-bps-conf-datasources --from-file=conf/bps/conf/datasources/
 oc create configmap wso2ei-bps-conf-tomcat --from-file=conf/bps/conf/tomcat/
 oc create configmap wso2ei-bps-conf-epr --from-file=conf/bps/conf/epr/
+oc create configmap wso2ei-bps-conf-bpmn-explorer --from-file=conf/bps/repository/deployment/server/jaggeryapps/bpmn-explorer/config/
+oc create configmap wso2ei-bps-conf-humantask-explorer --from-file=conf/bps/repository/deployment/server/jaggeryapps/humantask-explorer/config/
 
 # bps
 oc create -f resources/volumes
