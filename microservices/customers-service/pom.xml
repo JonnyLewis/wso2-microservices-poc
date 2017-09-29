@@ -63,7 +63,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>customers-service:${project.version}</name>
+                            <name>imesh/wso2-microservices-poc-customers-service:${project.version}</name>
                             <alias>customers-service</alias>
                             <build>
                                 <from>openjdk:8</from>

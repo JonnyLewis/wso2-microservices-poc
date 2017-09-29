@@ -19,4 +19,4 @@
 set -e
 
 ballerina build loanApplicationsService.bal
-docker build . -t loan-applications-service:0.1-SNAPSHOT
+docker build . -t imesh/wso2-microservices-poc-loan-applications-service:0.1-SNAPSHOT

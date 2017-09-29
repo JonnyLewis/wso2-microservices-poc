@@ -19,8 +19,7 @@
 set -e
 
 this_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-analytics_dir=$(cd "${this_dir}/analytics"; pwd)
-apim_dir=$(cd "${this_dir}/apim"; pwd)
+bps_dir=$(cd "${this_dir}/bps"; pwd)
 
 function docker_build() {
     tag=$1
@@ -35,4 +34,4 @@ function docker_build() {
     fi
 }
 
-docker_build imesh/wso2-microservices-poc-wso2ei-bps:6.1.1 .
+docker_build imesh/wso2-microservices-poc-wso2ei-bps:6.1.1 ${bps_dir}

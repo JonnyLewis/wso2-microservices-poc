@@ -69,7 +69,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>credits-service:${project.version}</name>
+                            <name>imesh/wso2-microservices-poc-credits-service:${project.version}</name>
                             <alias>credits-service</alias>
                             <build>
                                 <from>openjdk:8</from>

@@ -19,8 +19,8 @@
 set -e
 
 this_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-analytics_dir=$(cd "${this_dir}/analytics"; pwd)
 apim_dir=$(cd "${this_dir}/apim"; pwd)
+analytics_dir=$(cd "${this_dir}/analytics"; pwd)
 
 function docker_build() {
     tag=$1

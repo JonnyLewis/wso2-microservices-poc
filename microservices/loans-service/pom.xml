@@ -69,7 +69,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>loans-service:${project.version}</name>
+                            <name>imesh/wso2-microservices-poc-loans-service:${project.version}</name>
                             <alias>loans-service</alias>
                             <build>
                                 <from>openjdk:8</from>

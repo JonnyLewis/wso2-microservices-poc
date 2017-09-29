@@ -36,4 +36,4 @@ function docker_build() {
     fi
 }
 
-docker_build docker.wso2.com/mysql:5.7.19 $mysql_dir
+docker_build imesh/wso2-microservices-poc-mysql:5.7.19 $mysql_dir

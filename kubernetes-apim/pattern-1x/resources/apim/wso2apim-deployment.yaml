@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       -
-        image: docker.wso2.com/wso2am-kubernetes:2.1.0
+        image: imesh/wso2-microservices-poc-wso2apim:2.1.0
         name: wso2apim
         imagePullPolicy: IfNotPresent
         ports:
@@ -63,7 +63,6 @@ spec:
         -
           containerPort: 7611
           protocol: "TCP"
-
         volumeMounts:
         -
           name: apim-mgt-storage-volume
@@ -85,19 +84,6 @@ spec:
             port: 9443
           initialDelaySeconds: 300
           periodSeconds: 20
-      # -
-      #   image: docker.wso2.com/sshd-kubernetes:1.0.0
-      #   name: wso2apim-sshd
-      #   imagePullPolicy: IfNotPresent
-      #   ports:
-      #   -
-      #     containerPort: 8022
-      #     protocol: "TCP"
-
-      #   volumeMounts:
-      #   -
-      #     mountPath: "/home/wso2user/apim-artifacts"
-      #     name: apim-mgt-storage-volume
       serviceAccountName: "wso2svcacct"
       volumes:
       - name: apim-mgt-storage-volume

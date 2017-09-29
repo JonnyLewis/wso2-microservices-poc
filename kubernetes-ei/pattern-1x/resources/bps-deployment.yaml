@@ -15,17 +15,17 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: wso2ei-pattern1-integrator-deployment
+  name: wos2ei-bps-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        deployment: wso2ei-pattern1-integrator
+        deployment: wos2ei-bps
     spec:
       containers:
-      - name: wso2ei-pattern1-integrator
-        image: docker.wso2.com/wso2ei-kubernetes-integrator:6.1.1
+      - name: wos2ei-bps
+        image: wso2ei-bps:6.1.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8280
