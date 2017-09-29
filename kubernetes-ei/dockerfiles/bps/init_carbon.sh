@@ -44,25 +44,25 @@ if [[ -d ${HOME}/tmp/carbon/ ]]; then
 fi
 
 # Copy configuration maps
-if [ -e ${carbon_home}-conf/conf ]
- then cp ${carbon_home}-conf/conf/* ${carbon_home}/wso2/business-process/conf/
+if [ -e ${carbon_home}-conf/bps/conf ]
+ then cp ${carbon_home}-conf/bps/conf/* ${carbon_home}/wso2/business-process/conf/
 fi
 
-if [ -e ${carbon_home}-conf/conf-axis2 ]
- then cp ${carbon_home}-conf/conf-axis2/* ${carbon_home}/wso2/business-process/conf/axis2/
+if [ -e ${carbon_home}-conf/bps/conf-axis2 ]
+ then cp ${carbon_home}-conf/bps/conf-axis2/* ${carbon_home}/wso2/business-process/conf/axis2/
 fi
 
-if [ -e ${carbon_home}-conf/conf-datasources ]
- then cp ${carbon_home}-conf/conf-datasources/* ${carbon_home}/wso2/business-process/conf/datasources/
+if [ -e ${carbon_home}-conf/bps/conf-datasources ]
+ then cp ${carbon_home}-conf/bps/conf-datasources/* ${carbon_home}/wso2/business-process/conf/datasources/
 fi
 
-if [ -e ${carbon_home}-conf/conf-epr ]
- then cp ${carbon_home}-conf/conf-epr/* ${carbon_home}/wso2/business-process/repository/conf/epr/
+if [ -e ${carbon_home}-conf/bps/conf-epr ]
+ then cp ${carbon_home}-conf/bps/conf-epr/* ${carbon_home}/wso2/business-process/repository/conf/epr/
 fi
 
 # overwrite localMemberHost element value in axis2.xml with container ip
 export local_docker_ip=$(ip route get 1 | awk '{print $NF;exit}')
-axi2_xml_location=${carbon_home}/repository/conf/axis2/axis2.xml
+axi2_xml_location=${carbon_home}/wso2/business-process/conf/axis2/axis2.xml
 if [[ ! -z ${local_docker_ip} ]]; then
    sed -i "s#<parameter\ name=\"localMemberHost\".*#<parameter\ name=\"localMemberHost\">${local_docker_ip}<\/parameter>#" "${axi2_xml_location}"
    if [[ $? == 0 ]]; then

@@ -72,6 +72,7 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
         && mv ${USER_HOME}/${SUBSCRIPTION_WORKFLOW} ${USER_HOME}/tmp/server/bpel/ \
         && mkdir -p ${USER_HOME}/tmp/server/humantasks/ \
         && mv ${USER_HOME}/${SUBSCRIPTION_HUMAN_TASK} ${USER_HOME}/tmp/server/humantasks/ \
+        && mkdir -p ${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/wso2/business-process/repository/conf/epr/ \
         && rm ${USER_HOME}/${WSO2_SERVER_PACK} \
         && rm ${USER_HOME}/${JDK_ARCHIVE} \
         && rm ${USER_HOME}/${JDBC_DRIVER} \
