@@ -48,73 +48,78 @@ The following diagram illustrates the solution architecture of this POC:
    cp wso2am-2.1.0.zip kubernetes-apim/base/apim/files/
    cp wso2am-analytics-2.1.0.zip kubernetes-apim/base/analytics/files/
    ````
-   
-5. Install [Minishift](https://docs.openshift.org/latest/minishift/getting-started/index.html) or use an existing OpenShift cluster.
+5. Download [ballerinalang binary](https://ballerinalang.org/downloads/ballerina-runtime/ballerina-0.93.zip) and copy to the following folder in microservices directory
 
-6. Login to OpenShift cluster using [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli):
+  ````bash
+  cp ballerina-0.93.zip microservices/loan-applications-service/files/
+  ````  
+   
+6. Install [Minishift](https://docs.openshift.org/latest/minishift/getting-started/index.html) or use an existing OpenShift cluster.
+
+7. Login to OpenShift cluster using [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli):
 
    ````bash
    oc login -u system:admin
    ````
 
-7. If you are using Minishift execute the below command to configure your Docker CLI to point to the Minishift Docker daemon. This will allow the required Docker images to be built in the Minishift host itself:
+8. If you are using Minishift execute the below command to configure your Docker CLI to point to the Minishift Docker daemon. This will allow the required Docker images to be built in the Minishift host itself:
 
    ````bash
    eval $(minishift docker-env)
    ````
 
-8. Build MySQL Docker image:
+9. Build MySQL Docker image:
 
    ````bash
    cd kubernetes-mysql/base/
    ./build.sh
    ````
 
-9. Build microservices and their Docker images:
+10. Build microservices and their Docker images:
 
    ```bash
    cd microservices/
    ./build.sh
    ```
   
-10. Build WSO2 API Manager and WSO2 API Analytics Docker images using the below command:
+11. Build WSO2 API Manager and WSO2 API Analytics Docker images using the below command:
 
     ````bash
     cd kubernetes-apim/base/
     ./build.sh
     ````
 
-11. If an existing OpenShift cluster is used copy the above Docker images into the OpenShift nodes or to a Docker registry:
+12. If an existing OpenShift cluster is used copy the above Docker images into the OpenShift nodes or to a Docker registry:
    
     Copy the above Docker images over to the OpenShift Nodes. As an example use docker save command to create a tar file of the required image, scp the tar file to each node, and then use docker load command to load the image from the copied tar file on the nodes. Alternatively,if a private Docker registry is used, transfer the Docker images there and update the Docker image tags in the deployment files.
 
-12. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
+13. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
 
     ````bash
     oc create user admin --full-name=admin
     oc adm policy add-cluster-role-to-user cluster-admin admin
     ````
 
-13. Create a new project called wso2:
+14. Create a new project called wso2:
 
     ````bash
     oc new-project wso2 --description="WSO2" --display-name="wso2"
     ````
    
-14. Create a service account called wso2svcacct in wso2 project and assign anyuid security context constraint:
+15. Create a service account called wso2svcacct in wso2 project and assign anyuid security context constraint:
 
     ````bash
     oc create serviceaccount wso2svcacct
     oc adm policy add-scc-to-user anyuid -z wso2svcacct -n wso2
     ````
 
-15. Deploy the MySQL server, microservices, and WSO2 API Manager using the ```deploy.sh``` script found in the root folder:
+16. Deploy the MySQL server, microservices, and WSO2 API Manager using the ```deploy.sh``` script found in the root folder:
 
     ````bash
     ./deploy.sh
     ````
 
-16. Add /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is ```192.168.99.101```:
+17. Add /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is ```192.168.99.101```:
 
     ````bash
     192.168.99.101 wso2apim
@@ -124,7 +129,7 @@ The following diagram illustrates the solution architecture of this POC:
 
     The ```minishift ip``` command to can be used to find the IP address of Minishift VM.
 
-17. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang:
+18. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang:
 
     ````bash
     git clone https://github.com/imesh/wso2-apim-cli
@@ -133,7 +138,7 @@ The following diagram illustrates the solution architecture of this POC:
     go build .
     ````
 
-18. Expose following environment variables:
+19. Expose following environment variables:
 
     ````bash
     export DST_WSO2_APIM_ENDPOINT=https://wso2apim
@@ -142,7 +147,7 @@ The following diagram illustrates the solution architecture of this POC:
     export DST_WSO2_APIM_PASSWORD=admin
     ````
 
-19. Copy ```Customers API``` and ```Loan Applications API``` zip files found in ```[wso2-microservices-poc]\apis\``` folder to the ```[wso2-apim-cli]\export\``` folder and execute the following command to import those to the WSO2 API Manager:
+20. Copy ```Customers API``` and ```Loan Applications API``` zip files found in ```[wso2-microservices-poc]\apis\``` folder to the ```[wso2-apim-cli]\export\``` folder and execute the following command to import those to the WSO2 API Manager:
 
     ````bash
     cp [wso2-microservices-poc]/apis/*.zip [wso2-apim-cli]/export/
@@ -159,23 +164,23 @@ The following diagram illustrates the solution architecture of this POC:
     API LoanApplicationsAPI-v1.0 published successfully
     ````
 
-20. Download and install [Postman](https://www.getpostman.com/) API client application.
+21. Download and install [Postman](https://www.getpostman.com/) API client application.
 
-21. Import Postman project found in ```[wso2-microservices-poc]/postman/``` folder into Postman.
+22. Import Postman project found in ```[wso2-microservices-poc]/postman/``` folder into Postman.
 
-22. Log into WSO2 API Manager using the URL [https://wso2apim/store](https://wso2apim/store) and credentials admin/admin.
+23. Log into WSO2 API Manager using the URL [https://wso2apim/store](https://wso2apim/store) and credentials admin/admin.
 
-23. Subscribe to both Customers API and Loan Applications API.
+24. Subscribe to both Customers API and Loan Applications API.
 
-24. Navigate to "Applications" -> "Default Application" -> "Production Keys" and press the "Generate keys" button.
+25. Navigate to "Applications" -> "Default Application" -> "Production Keys" and press the "Generate keys" button.
 
-25. Copy the "Access Token" generated and update it in the Postman project under "Authorization" header in each request.
+26. Copy the "Access Token" generated and update it in the Postman project under "Authorization" header in each request.
 
-26. Invoke the "Create Customer" request via Postman.
+27. Invoke the "Create Customer" request via Postman.
 
-27. Copy the "Customer ID" from the above response, add it to the body of the "Create Loan Application" request and invoke.
+28. Copy the "Customer ID" from the above response, add it to the body of the "Create Loan Application" request and invoke.
 
-28. Now login to the OpenShift console and view the Loan Applications container log:
+29. Now login to the OpenShift console and view the Loan Applications container log:
 
     ````bash
     HTTP GET /status/{referenceNumber} resource invoked: [referenceNumber] PERSONAL2017000002
