@@ -27,7 +27,7 @@ spec:
         app: loans
     spec:
       containers:
-      - image: loans-service:0.1-SNAPSHOT
+      - image: imesh/wso2-microservices-poc-loans-service:0.1-SNAPSHOT
         name: loans
         imagePullPolicy: IfNotPresent
         env:

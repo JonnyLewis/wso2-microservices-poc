@@ -27,7 +27,7 @@ spec:
         app: credits
     spec:
       containers:
-      - image: credits-service:0.1-SNAPSHOT
+      - image: imesh/wso2-microservices-poc-credits-service:0.1-SNAPSHOT
         name: credits
         imagePullPolicy: IfNotPresent
         env:
