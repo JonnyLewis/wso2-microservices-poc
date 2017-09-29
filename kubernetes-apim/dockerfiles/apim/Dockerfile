@@ -33,9 +33,9 @@ ARG JDK_ARCHIVE=jdk-8u*-linux-x64.tar.gz
 ARG JAVA_HOME=${USER_HOME}/java
 ARG STARTUP_SCRIPT=init_carbon.sh
 ARG JDBC_DRIVER=mysql-connector-java-5*-bin.jar
-ARG API_IMPORT_EXPORT_WAR=api-import-export-2.1.0-v2.war
 ARG CLIENT_TRUSTSTORE=client-truststore.jks
 ARG WSO2CARBON_JKS=wso2carbon.jks
+ARG API_IMPORT_EXPORT_WAR=api-import-export-2.1.0-v2.war
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \

@@ -17,8 +17,11 @@
 # ------------------------------------------------------------------------
 
 set -e
-carbon_home=${HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
-server_artifact_location=${carbon_home}/wso2/business-process/repository/deployment/server
+CARBON_HOME=${HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
+SERVER_ARTIFACT_LOCATION=${CARBON_HOME}/wso2/business-process/repository/deployment/server
+
+echo "carbon home: ${CARBON_HOME}"
+echo "server artifact location: ${SERVER_ARTIFACT_LOCATION}"
 
 # Change the user of repository/deployment/server to wso2user. 
 # this is done to avoid permission issues arising with volume mounts 
@@ -28,41 +31,41 @@ sudo /bin/change_ownership.sh
 # Dockerfile. This is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially). 
 # The artifacts will be copied to the CARBON_HOME/wso2/business-process/repository/deployment/server location before the server is started.
 if [[ -d ${HOME}/tmp/server/ ]]; then
-   if [[ ! "$(ls -A ${server_artifact_location}/)" ]]; then
+   if [[ ! "$(ls -A ${SERVER_ARTIFACT_LOCATION}/)" ]]; then
       # There are no artifacts under CARBON_HOME/wso2/business-process/repository/deployment/server/; copy them.
-      echo "copying artifacts from ${HOME}/tmp/server/ to ${server_artifact_location}/ .."
-      cp -rf ${HOME}/tmp/server/* ${server_artifact_location}/
+      echo "copying artifacts from ${HOME}/tmp/server/ to ${SERVER_ARTIFACT_LOCATION}/ .."
+      cp -vrf ${HOME}/tmp/server/* ${SERVER_ARTIFACT_LOCATION}/
    fi
    rm -rf ${HOME}/tmp/server/
 fi
 
 # Copy customizations done by user do the CARBON_HOME location. 
 if [[ -d ${HOME}/tmp/carbon/ ]]; then
-   echo "copying custom configurations and artifacts from ${HOME}/tmp/carbon/ to ${carbon_home}/ .."
-   cp -rf ${HOME}/tmp/carbon/* ${carbon_home}/
+   echo "copying custom configurations and artifacts from ${HOME}/tmp/carbon/ to ${CARBON_HOME}/ .."
+   cp -vrf ${HOME}/tmp/carbon/* ${CARBON_HOME}/
    rm -rf ${HOME}/tmp/carbon/
 fi
 
-# Copy configuration maps
-if [ -e ${carbon_home}-conf/bps/conf ]
- then cp ${carbon_home}-conf/bps/conf/* ${carbon_home}/wso2/business-process/conf/
+# Copy configurations
+if [ -e ${CARBON_HOME}-conf/bps/conf ]; then
+   cp -v ${CARBON_HOME}-conf/bps/conf/* ${CARBON_HOME}/wso2/business-process/conf/
 fi
 
-if [ -e ${carbon_home}-conf/bps/conf-axis2 ]
- then cp ${carbon_home}-conf/bps/conf-axis2/* ${carbon_home}/wso2/business-process/conf/axis2/
+if [ -e ${CARBON_HOME}-conf/bps/conf-axis2 ]; then 
+   cp -v ${CARBON_HOME}-conf/bps/conf-axis2/* ${CARBON_HOME}/wso2/business-process/conf/axis2/
 fi
 
-if [ -e ${carbon_home}-conf/bps/conf-datasources ]
- then cp ${carbon_home}-conf/bps/conf-datasources/* ${carbon_home}/wso2/business-process/conf/datasources/
+if [ -e ${CARBON_HOME}-conf/bps/conf-datasources ]; then 
+   cp -v ${CARBON_HOME}-conf/bps/conf-datasources/* ${CARBON_HOME}/wso2/business-process/conf/datasources/
 fi
 
-if [ -e ${carbon_home}-conf/bps/conf-epr ]
- then cp ${carbon_home}-conf/bps/conf-epr/* ${carbon_home}/wso2/business-process/repository/conf/epr/
+if [ -e ${CARBON_HOME}-conf/bps/conf-epr ]; then 
+   cp -v ${CARBON_HOME}-conf/bps/conf-epr/* ${CARBON_HOME}/wso2/business-process/repository/conf/epr/
 fi
 
 # overwrite localMemberHost element value in axis2.xml with container ip
 export local_docker_ip=$(ip route get 1 | awk '{print $NF;exit}')
-axi2_xml_location=${carbon_home}/wso2/business-process/conf/axis2/axis2.xml
+axi2_xml_location=${CARBON_HOME}/wso2/business-process/conf/axis2/axis2.xml
 if [[ ! -z ${local_docker_ip} ]]; then
    sed -i "s#<parameter\ name=\"localMemberHost\".*#<parameter\ name=\"localMemberHost\">${local_docker_ip}<\/parameter>#" "${axi2_xml_location}"
    if [[ $? == 0 ]]; then
@@ -73,4 +76,4 @@ if [[ ! -z ${local_docker_ip} ]]; then
 fi
 
 # Start the bps server.
-${carbon_home}/bin/business-process.sh
+${CARBON_HOME}/bin/business-process.sh
