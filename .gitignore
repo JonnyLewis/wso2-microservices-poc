@@ -7,3 +7,5 @@ dependency-reduced-pom.xml
 *.prefs
 .project
 .classpath
+*.tar.gz
+*.jar
