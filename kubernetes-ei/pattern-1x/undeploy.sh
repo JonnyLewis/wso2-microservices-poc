@@ -16,32 +16,11 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-# methods
-function echoBold () {
-    echo $'\e[1m'"${1}"$'\e[0m'
-}
+echo 'un-deploying ei/bps...'
+oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l pattern=wso2ei-pattern-1x -n wso2
 
-# NGINX ingress controller
-echoBold 'Un-deploying NGINX Ingress Controller...'
-kubectl delete -f integrator-ingress.yaml
-kubectl delete -f nginx-ingress-controller.yaml
-kubectl delete -f nginx-default-backend.yaml
-
-# integrator
-echoBold 'Un-deploying WSO2 Integrator...'
-kubectl delete -f integrator-deployment.yaml
-kubectl delete -f integrator-gateway-service.yaml
-kubectl delete -f integrator-service.yaml
-
-# databases
-echoBold 'Un-deploying WSO2 Integrator Databases...'
-kubectl delete -f mysql-deployment.yaml
-kubectl delete -f mysql-service.yaml
-
-# configuration maps
-echoBold 'Deleting Configuration Maps...'
-kubectl delete configmap integrator-conf
-kubectl delete configmap integrator-conf-axis2
-kubectl delete configmap integrator-conf-datasources
-
-echoBold 'Finished'
+echo 'delete configuration maps...'
+oc delete configmap wso2ei-bps-conf
+oc delete configmap wso2ei-bps-conf-axis2 
+oc delete configmap wso2ei-bps-conf-datasources
+oc delete configmap wso2ei-bps-conf-epr

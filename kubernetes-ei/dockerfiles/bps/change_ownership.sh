@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # ------------------------------------------------------------------------
 # Copyright 2017 WSO2, Inc. (http://wso2.com)
@@ -16,20 +16,15 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-# methods
-function echoBold () {
-    echo $'\e[1m'"${1}"$'\e[0m'
-}
-
 set -e
 
-# configuration maps
-echoBold 'creating configuration maps...'
-oc create configmap wso2ei-bps-conf --from-file=conf/bps/conf/
-oc create configmap wso2ei-bps-conf-axis2 --from-file=conf/bps/conf/axis2/
-oc create configmap wso2ei-bps-conf-datasources --from-file=conf/bps/conf/datasources/
-oc create configmap wso2ei-bps-conf-epr --from-file=conf/bps/conf/epr/
+carbon_home=${HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
+server_artifact_location=${carbon_home}/wso2/business-process/repository/deployment/server
 
-# bps
-echoBold 'deploying wso2 ei/bps...'
-oc create -f resources/
+echo 'changing ownership of ${server_artifact_location} directory: '
+echo "user: ${USER}"
+echo "user home: ${USER_HOME}"
+echo "carbon server: ${WSO2_SERVER}-${WSO2_SERVER_VERSION}"
+
+/bin/chown -R ${USER} ${server_artifact_location}
+/bin/chgrp -R root ${server_artifact_location}
