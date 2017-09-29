@@ -27,7 +27,7 @@ spec:
         app: customers
     spec:
       containers:
-      - image: imesh/wso2-microservices-poc-customers-service:0.1-SNAPSHOT
+      - image: imesh/wso2-microservices-poc-customers-service:0.1
         name: customers
         imagePullPolicy: IfNotPresent
         env:

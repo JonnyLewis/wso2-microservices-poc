@@ -28,7 +28,7 @@
 
     <groupId>org.demo</groupId>
     <artifactId>finance-demo-root-pom</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <name>Finance Demo Root POM</name>
     <packaging>pom</packaging>
 

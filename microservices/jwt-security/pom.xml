@@ -13,7 +13,7 @@
     <groupId>org.demo.loan.security</groupId>
     <artifactId>jwt-security</artifactId>
     <name>JWT Security Interceptors</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
 
     <dependencies>
         <dependency>

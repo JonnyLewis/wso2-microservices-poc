@@ -47,7 +47,7 @@ import java.util.List;
  * See <a href="https://github.com/wso2/msf4j#getting-started">https://github.com/wso2/msf4j#getting-started</a>
  * for the usage of annotations.
  *
- * @since 0.1-SNAPSHOT
+ * @since 0.1
  */
 @Api(value = "loanservice")
 @SwaggerDefinition(

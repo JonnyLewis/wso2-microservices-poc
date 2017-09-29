@@ -28,7 +28,7 @@
 
     <groupId>org.demo.loan</groupId>
     <artifactId>loans-service</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <name>Loans Service</name>
 
     <dependencies>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.demo.loan.security</groupId>
             <artifactId>jwt-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 

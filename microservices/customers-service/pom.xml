@@ -28,7 +28,7 @@
 
     <groupId>org.demo.customers</groupId>
     <artifactId>customers-service</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <name>Customers Service</name>
 
 
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>org.demo.loan.security</groupId>
             <artifactId>jwt-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 

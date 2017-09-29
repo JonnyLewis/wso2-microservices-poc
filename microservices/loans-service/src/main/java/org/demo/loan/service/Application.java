@@ -22,7 +22,7 @@ import org.wso2.msf4j.MicroservicesRunner;
 /**
  * Application entry point.
  *
- * @since 0.1-SNAPSHOT
+ * @since 0.1
  */
 public class Application {
     public static void main(String[] args) {
