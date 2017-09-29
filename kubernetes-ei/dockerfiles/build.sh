@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # ------------------------------------------------------------------------
 # Copyright 2017 WSO2, Inc. (http://wso2.com)
@@ -18,18 +18,21 @@
 
 set -e
 
-pushd base
-./build.sh
-popd
+this_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+analytics_dir=$(cd "${this_dir}/analytics"; pwd)
+apim_dir=$(cd "${this_dir}/apim"; pwd)
 
-pushd integrator
-./build.sh
-popd
+function docker_build() {
+    tag=$1
+    path=$2
+    docker_api_version=`docker version | grep -m2 "API version" | tail -n1 | cut -d' ' -f5 | bc -l`
+    echo "Building Docker image ${tag}..."
+    if (( $(echo ${docker_api_version} '>=' 1.25 | bc -l) )); then
+        docker build -t ${tag} ${path} --squash
+    else
+        echo "Docker API version is ${docker_api_version}, ignoring --squash option"
+        docker build -t ${tag} ${path}
+    fi
+}
 
-pushd analytics
-./build.sh
-popd
-
-pushd mysql
-./build.sh
-popd
+docker_build imesh/wso2-microservices-poc-wso2ei-bps:6.1.1 .

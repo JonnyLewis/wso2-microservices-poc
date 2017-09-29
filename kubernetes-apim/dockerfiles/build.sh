@@ -16,8 +16,6 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-# builds the base images - apim-base, analytics, rsync, sshd
-
 set -e
 
 this_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -37,5 +35,5 @@ function docker_build() {
     fi
 }
 
-docker_build docker.wso2.com/wso2am-kubernetes:2.1.0 $apim_dir
-docker_build docker.wso2.com/wso2am-analytics-kubernetes:2.1.0 $analytics_dir
+docker_build imesh/wso2-microservices-poc-wso2apim:2.1.0 $apim_dir
+docker_build imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0 $analytics_dir
