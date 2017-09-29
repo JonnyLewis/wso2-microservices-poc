@@ -35,6 +35,8 @@ oc create configmap apim-identity --from-file=confs/apim/repository/conf/identit
 oc create configmap apim-axis2 --from-file=confs/apim/repository/conf/axis2/
 oc create configmap apim-datasources --from-file=confs/apim/repository/conf/datasources/
 oc create configmap apim-tomcat --from-file=confs/apim/repository/conf/tomcat/
+oc create configmap apim-site-conf --from-file=confs/apim/repository/deployment/server/jaggeryapps/admin/site/conf
+
 
 echo 'creating services and volume claims...'
 oc create -f resources/apim-analytics/wso2apim-analytics-service.yaml

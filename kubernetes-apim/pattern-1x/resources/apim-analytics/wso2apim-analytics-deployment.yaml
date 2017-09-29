@@ -91,9 +91,6 @@ spec:
         - name: apim-analytics-conf
           configMap:
             name: apim-analytics-conf
-        # - name: apim-analytics-spark
-        #   configMap:
-        #     name: apim-analytics-spark
         - name: apim-analytics-axis2
           configMap:
             name: apim-analytics-axis2

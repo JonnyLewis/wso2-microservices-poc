@@ -31,3 +31,4 @@ oc delete configmaps apim-identity
 oc delete configmaps apim-axis2
 oc delete configmaps apim-datasources
 oc delete configmaps apim-tomcat
+oc delete configmaps apim-site-conf
