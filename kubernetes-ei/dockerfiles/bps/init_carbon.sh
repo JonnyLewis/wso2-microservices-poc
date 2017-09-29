@@ -59,7 +59,12 @@ if [ -e ${CARBON_HOME}-conf/bps/conf-datasources ]; then
    cp -v ${CARBON_HOME}-conf/bps/conf-datasources/* ${CARBON_HOME}/wso2/business-process/conf/datasources/
 fi
 
-if [ -e ${CARBON_HOME}-conf/bps/conf-epr ]; then 
+if [ -e ${CARBON_HOME}-conf/bps/conf-tomcat ]; then 
+   cp -v ${CARBON_HOME}-conf/bps/conf-tomcat/* ${CARBON_HOME}/wso2/business-process/conf/tomcat/
+fi
+
+if [ -e ${CARBON_HOME}-conf/bps/conf-epr ]; then
+   # workflow process and human task look for the epr files in ${CARBON_HOME}/wso2/business-process/repository/conf/epr
    cp -v ${CARBON_HOME}-conf/bps/conf-epr/* ${CARBON_HOME}/wso2/business-process/repository/conf/epr/
 fi
 

@@ -23,4 +23,5 @@ echo 'delete configuration maps...'
 oc delete configmap wso2ei-bps-conf
 oc delete configmap wso2ei-bps-conf-axis2 
 oc delete configmap wso2ei-bps-conf-datasources
+oc delete configmap wso2ei-bps-conf-tomcat
 oc delete configmap wso2ei-bps-conf-epr

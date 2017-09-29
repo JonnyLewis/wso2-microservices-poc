@@ -17,7 +17,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: wso2ei-bps-volume-claim
   labels:
-    app: wso2ei
+    app: wso2ei-bps
     pattern: wso2ei-pattern-1x
 spec:
   accessModes:

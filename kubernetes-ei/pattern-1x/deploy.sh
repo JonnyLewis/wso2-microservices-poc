@@ -28,8 +28,12 @@ echoBold 'creating configuration maps...'
 oc create configmap wso2ei-bps-conf --from-file=conf/bps/conf/
 oc create configmap wso2ei-bps-conf-axis2 --from-file=conf/bps/conf/axis2/
 oc create configmap wso2ei-bps-conf-datasources --from-file=conf/bps/conf/datasources/
+oc create configmap wso2ei-bps-conf-tomcat --from-file=conf/bps/conf/tomcat/
 oc create configmap wso2ei-bps-conf-epr --from-file=conf/bps/conf/epr/
 
 # bps
+oc create -f resources/volumes
+sleep 10s
+
 echoBold 'deploying wso2 ei/bps...'
-oc create -f resources/
+oc create -f resources/bps

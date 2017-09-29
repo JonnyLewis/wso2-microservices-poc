@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv-bps
+  name: local-wso2ei-bps-pv
   labels:
     type: local
     pattern: wso2ei-pattern-1x
@@ -27,5 +26,4 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /tmp/data/pattern-1x-pv-bps
-
+    path: /tmp/data/wso2ei-bps-pattern-1x-pv
