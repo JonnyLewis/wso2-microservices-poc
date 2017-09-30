@@ -260,14 +260,14 @@ it to the following folder:
 6. Build WSO2 API Manager and WSO2 API Analytics Docker images using the below bash script:
 
     ````bash
-    cd kubernetes-apim/base/
+    cd kubernetes-apim/dockerfiles/
     ./build.sh
     ````
     
 7. Build WSO2 Enterprise Integrator BPS Docker image using the below bash script:
 
     ````bash
-    cd kubernetes-apim/base/
+    cd kubernetes-ei/dockerfiles/
     ./build.sh
 
 
