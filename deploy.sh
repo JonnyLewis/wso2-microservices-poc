@@ -26,6 +26,10 @@ pushd kubernetes-microservices/
 ./deploy.sh
 popd
 
+pushd kubernetes-ei/pattern-1x/
+./deploy.sh
+popd
+
 pushd kubernetes-apim/pattern-1x/
 ./deploy.sh
 popd

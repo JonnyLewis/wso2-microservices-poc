@@ -22,6 +22,10 @@ pushd kubernetes-apim/pattern-1x/
 ./undeploy.sh
 popd
 
+pushd kubernetes-ei/pattern-1x/
+./undeploy.sh
+popd
+
 pushd kubernetes-microservices/
 ./undeploy.sh
 popd
