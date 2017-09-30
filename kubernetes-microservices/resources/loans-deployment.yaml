@@ -36,7 +36,7 @@ spec:
             value: com.mysql.jdbc.Driver
           -
             name: JDBC_URL
-            value: jdbc:mysql://mysql-server:3306/loandb
+            value: jdbc:mysql://mysql-server:3306/loan_db
           -
             name: DB_USER
             value: root

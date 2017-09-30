@@ -7,7 +7,7 @@
     "server": {
         "https": "%https.host%",
         "http": "%http.host%",
-        "bpsHost":"localhost",
+        "bpsHost":"wso2ei-bps",
         "bpsPort":"9445",
         "bpsTenantDomain": "",
         "bpsTenantId" : ""
