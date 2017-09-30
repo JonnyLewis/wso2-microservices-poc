@@ -20,13 +20,13 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer 96712cc5-b97e-35ec-9c90-cd0bf9512b26",
+						"value": "{{auth-header}}",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":40000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
+					"raw": "{\n\t\"type\":\"Personal\",\n\t\"customerId\":\"1\",\n\t\"amount\":10000.00,\n\t\"income\":200000.00,\n\t\"period\":12\n}\n"
 				},
 				"description": ""
 			},
@@ -40,7 +40,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
+						"value": "{{auth-header}}",
 						"description": ""
 					},
 					{
@@ -62,7 +62,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
+						"value": "{{auth-header}}",
 						"description": ""
 					},
 					{
@@ -84,7 +84,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 32aab7a6-186d-35c3-a940-57efc16913bd",
+						"value": "{{auth-header}}",
 						"description": ""
 					},
 					{
@@ -106,7 +106,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer defde372-418d-3db3-bd39-8d4fe562e09a",
+						"value": "{{auth-header}}",
 						"description": ""
 					}
 				],
@@ -126,7 +126,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 96712cc5-b97e-35ec-9c90-cd0bf9512b26",
+						"value": "{{auth-header}}",
 						"description": ""
 					}
 				],
@@ -143,7 +143,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 96712cc5-b97e-35ec-9c90-cd0bf9512b26",
+						"value": "{{auth-header}}",
 						"description": ""
 					},
 					{
