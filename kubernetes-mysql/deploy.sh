@@ -20,6 +20,10 @@ oc project wso2
 
 echo 'deploying mysql server...'
 
+# config maps
+oc create configmap mysql-scripts --from-file=scripts/
+sleep 10s
+
 # volumes
 oc create -f resources/volumes/persistent-volumes.yaml
 

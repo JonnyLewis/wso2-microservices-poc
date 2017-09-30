@@ -1,5 +1,5 @@
-CREATE DATABASE customerdb;
-USE customerdb;
+CREATE DATABASE customer_db;
+USE customer_db;
 
 CREATE TABLE `CUSTOMER` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,

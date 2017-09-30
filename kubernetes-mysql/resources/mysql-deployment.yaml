@@ -28,7 +28,7 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: imesh/wso2-microservices-poc-mysql:5.7.19
+      - image: mysql:5.7.19
         name: mysql
         imagePullPolicy: IfNotPresent
         env:
@@ -41,9 +41,14 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        - name: mysql-scripts
+          mountPath: /docker-entrypoint-initdb.d/
         args: ["--max-connections", "10000"]
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-volume-claim
+      - name: mysql-scripts
+        configMap:
+          name: mysql-scripts
       serviceAccountName: "wso2svcacct"

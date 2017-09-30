@@ -1,6 +1,6 @@
-CREATE DATABASE creditdb;
+CREATE DATABASE credit_db;
 
-USE creditdb;
+USE credit_db;
 
 CREATE TABLE `CUSTOMER_CREDIT` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
