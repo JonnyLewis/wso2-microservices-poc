@@ -18,8 +18,8 @@ The following diagram illustrates the solution architecture of this POC:
 - The process of building Docker images for integration services.
 - Wiring database connections, integrations between microservices and integration services.
 - Exposing microservices and integration services via WSO2 API Manager.
-- Deploying microservices, integration services and WSO2 API Manager on OpenShift.
-- Enabling API subscription workflow with WSO2 Enterprise Integrator/Business Process Server (EI/BPS).
+- Deploying microservices, integration services, WSO2 Enterprise Integrator/Business Proces Server WSO2 API Manager on OpenShift.
+- Enabling API subscription workflow with WSO2 Enterprise Integrator/Business Process Server.
 
 ## Getting Started
 
