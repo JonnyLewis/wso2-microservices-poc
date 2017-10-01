@@ -20,6 +20,7 @@ The following diagram illustrates the solution architecture of this POC:
 - Exposing microservices and integration services via WSO2 API Manager.
 - Deploying microservices, integration services, WSO2 Enterprise Integrator/Business Proces Server WSO2 API Manager on OpenShift.
 - Enabling API subscription workflow with WSO2 Enterprise Integrator/Business Process Server.
+- Migrating APIs between API manager environments using [API-M CLI](https://github.com/imesh/wso2-apim-cli).
 
 ## Getting Started
 
@@ -55,6 +56,7 @@ daemon. This will allow the required Docker images to be pulled to the Minishift
    docker pull imesh/wso2-microservices-poc-wso2apim:2.1.0
    docker pull imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0
    docker pull imesh/wso2-microservices-poc-wso2ei-bps:6.1.1
+   docker pull mysql:5.7.19
    ````
    
 6. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
