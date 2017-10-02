@@ -22,6 +22,25 @@ The following diagram illustrates the solution architecture of this POC:
 - Enabling API subscription workflow with WSO2 Enterprise Integrator/Business Process Server.
 - Migrating APIs between API manager environments using [API-M CLI](https://github.com/imesh/wso2-apim-cli).
 
+## Prerequisites
+
+- [Minishift](https://docs.openshift.org/latest/minishift) v1.6+ or an OpenShift v3.6.0+ environment
+- If using Minishift:
+  - An OSX or a Linux computer with 16GB of memory and 40GB of free disk space
+  - VirtualBox v5.1+
+- [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli) v3.6.0+
+- Following Docker images:
+  ````
+  imesh/wso2-microservices-poc-customers-service:0.1
+  imesh/wso2-microservices-poc-credits-service:0.1
+  imesh/wso2-microservices-poc-loans-service:0.1
+  imesh/wso2-microservices-poc-loan-applications-service:0.1
+  imesh/wso2-microservices-poc-wso2apim:2.1.0
+  imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0
+  imesh/wso2-microservices-poc-wso2ei-bps:6.1.1
+  mysql:5.7.19
+  ````
+
 ## Getting Started
 
 1. Clone this repository and switch to the latest tag. Refer this folder as [wso2-microservices-poc]:
@@ -33,20 +52,26 @@ The following diagram illustrates the solution architecture of this POC:
 2. Install [Minishift](https://docs.openshift.org/latest/minishift/getting-started/index.html) or use an existing 
 OpenShift cluster.
 
-3. Login to OpenShift cluster using [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli):
+3. If you are using Minishift start it using the below command:
+   
+   ````bash
+   minishift start --vm-driver virtualbox --cpus=4 --memory=8GB --disk-size=40GB
+   ````
+
+4. Login to OpenShift cluster using [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli):
 
    ````bash
    oc login -u system:admin
    ````
 
-4. If you are using Minishift execute the below command to configure your Docker CLI to point to the Minishift Docker 
+5. If you are using Minishift execute the below command to configure your Docker CLI to point to the Minishift Docker 
 daemon. This will allow the required Docker images to be pulled to the Minishift host directly:
 
    ````bash
    eval $(minishift docker-env)
    ````
 
-5. Pull the below Docker images into the OpenShift environment:
+6. Pull the below Docker images into the OpenShift environment:
 
    ````bash
    docker pull imesh/wso2-microservices-poc-customers-service:0.1
@@ -59,34 +84,34 @@ daemon. This will allow the required Docker images to be pulled to the Minishift
    docker pull mysql:5.7.19
    ````
    
-6. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
+7. Create an user in OpenShift called admin and assign the cluster-admin role. This user will be used to deploy OpenShift resources:
 
     ````bash
     oc create user admin --full-name=admin
     oc adm policy add-cluster-role-to-user cluster-admin admin
     ````
 
-7. Create a new project called wso2:
+8. Create a new project called wso2:
 
     ````bash
     oc new-project wso2 --description="WSO2" --display-name="wso2"
     ````
    
-8. Create a service account called wso2svcacct in wso2 project and assign anyuid security context constraint:
+9. Create a service account called wso2svcacct in wso2 project and assign anyuid security context constraint:
 
     ````bash
     oc create serviceaccount wso2svcacct
     oc adm policy add-scc-to-user anyuid -z wso2svcacct -n wso2
     ````
 
-9. Deploy the MySQL server, microservices, WSO2 Enterprise Integrator/Business Process Server, and WSO2 API Manager 
+10. Deploy the MySQL server, microservices, WSO2 Enterprise Integrator/Business Process Server, and WSO2 API Manager 
 using the ```deploy.sh``` script found in the root folder:
 
     ````bash
     ./deploy.sh
     ````
 
-10. Add following /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is 
+11. Add following /etc/hosts entries pointing to a OpenShift node IP address. For an example if OpenShift node IP is 
 ```192.168.99.101```:
 
     ````bash
@@ -97,7 +122,7 @@ using the ```deploy.sh``` script found in the root folder:
 
     The ```minishift ip``` command to can be used for finding the IP address of Minishift VM.
 
-11. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang, refer this folder
+12. Download and build [WSO2 API Manager CLI](https://github.com/imesh/wso2-apim-cli) using Golang, refer this folder
 as [wso2-apim-cli]:
 
     ````bash
@@ -107,7 +132,7 @@ as [wso2-apim-cli]:
     go build .
     ````
 
-12. Expose following environment variables:
+13. Expose following environment variables:
 
     ````bash
     export DST_WSO2_APIM_ENDPOINT=https://wso2apim
@@ -116,7 +141,7 @@ as [wso2-apim-cli]:
     export DST_WSO2_APIM_PASSWORD=admin
     ````
 
-13. Copy ```CustomersAPI-v1.0.zip``` and ```LoanApplicationsAPI-v1.0.zip``` zip files found in 
+14. Copy ```CustomersAPI-v1.0.zip``` and ```LoanApplicationsAPI-v1.0.zip``` zip files found in 
 ```[wso2-microservices-poc]\apis\``` folder to the ```[wso2-apim-cli]\export\``` folder and execute the following 
 command to import those to the WSO2 API Manager:
 
@@ -135,27 +160,27 @@ command to import those to the WSO2 API Manager:
     API LoanApplicationsAPI-v1.0 published successfully
     ````
 
-14. Download and install [Postman](https://www.getpostman.com/) API client application.
+15. Download and install [Postman](https://www.getpostman.com/) API client application.
 
-15. Import the Postman project and the oauth environment found in the ```[wso2-microservices-poc]/postman/``` folder 
+16. Import the Postman project and the oauth environment found in the ```[wso2-microservices-poc]/postman/``` folder 
 into Postman.
 
-16. Log into API Store using the URL [https://wso2apim/store](https://wso2apim/store) and default credentials 
+17. Log into API Store using the URL [https://wso2apim/store](https://wso2apim/store) and default credentials 
 admin/admin.
 
-17. Subscribe to both Customers API and Loan Applications API.
+18. Subscribe to both Customers API and Loan Applications API.
 
-18. Navigate to "Applications" -> "Default Application" -> "Production Keys" and press the "Generate keys" button.
+19. Navigate to "Applications" -> "Default Application" -> "Production Keys" and press the "Generate keys" button.
 
-19. Copy the "Access Token" generated above to the clipboard and paste it to the auth-header environment variable in 
+20. Copy the "Access Token" generated above to the clipboard and paste it to the auth-header environment variable in 
 the OAuth environment in Postman.
 
-20. Invoke the "Create Customer" request via Postman to create a new customer.
+21. Invoke the "Create Customer" request via Postman to create a new customer.
 
-21. Copy the generated "Customer ID" from the above response, add it to the body of the "Create Loan Application" 
+22. Copy the generated "Customer ID" from the above response, add it to the body of the "Create Loan Application" 
 request and invoke it to create a new loan application.
 
-22. Now login to the OpenShift console and view the Loan Applications container log:
+23. Now login to the OpenShift console and view the Loan Applications container log:
 
     ````bash
     HTTP GET /status/{referenceNumber} resource invoked: [referenceNumber] PERSONAL2017000002
