@@ -18,6 +18,7 @@
 
 echo 'un-deploying mysql server...'
 oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l app=mysql -n wso2
+oc delete configmap post-init
 oc delete configmap mysql-scripts
 
 if [ -x "$(command -v minishift)" ]; then

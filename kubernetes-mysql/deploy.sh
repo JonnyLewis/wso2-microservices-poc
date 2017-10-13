@@ -21,6 +21,7 @@ oc project wso2
 echo 'deploying mysql server...'
 
 # config maps
+oc create configmap post-init --from-file=post-init/post-init.sh
 oc create configmap mysql-scripts --from-file=scripts/
 sleep 10s
 

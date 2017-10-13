@@ -28,26 +28,29 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.7.19
+      # OpenShift MySQL 5.7 docker image
+      # https://github.com/sclorg/mysql-container/
+      - image: centos/mysql-57-centos7
         name: mysql
         imagePullPolicy: IfNotPresent
         env:
-          -
-            name: MYSQL_ROOT_PASSWORD
-            value: root
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_MAX_CONNECTIONS
+          value: "1000"
         ports:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+        - name: post-init
+          mountPath: /usr/share/container-scripts/mysql/post-init.sh
+          subPath: post-init.sh
         - name: mysql-scripts
-          mountPath: /docker-entrypoint-initdb.d/
-        args: ["--max-connections", "10000"]
+          mountPath: /tmp/scripts/
       volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-volume-claim
+      - name: post-init
+        configMap:
+          name: post-init
       - name: mysql-scripts
         configMap:
           name: mysql-scripts
