@@ -20,17 +20,23 @@ FROM openjdk:8
 MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG USER_HOME=/home/root/
+ARG USER=wso2user
+ARG BAL_HOME=/ballerina/
+RUN mkdir ${BAL_HOME}
 
-COPY files/ballerina-0.93.zip ${USER_HOME}
-COPY loanApplicationsService.balx ${USER_HOME}
+COPY files/ballerina-0.93.zip ${BAL_HOME}
+COPY loanApplicationsService.balx ${BAL_HOME}
 
-WORKDIR ${USER_HOME}
+WORKDIR ${BAL_HOME}
 
 RUN unzip ballerina-0.93.zip \
-    && chgrp -R 0 ${USER_HOME} \
-    && chmod -R g=u ${USER_HOME} \
-    && chown -R root ${USER_HOME} \
-    && chmod -R 0774 ${USER_HOME}
+    && useradd --system --no-log-init ${USER} \
+    && chown -R ${USER} ${BAL_HOME} \
+    && chmod -R 0774 ${BAL_HOME} \
+    && chgrp -R 0 ${BAL_HOME} \
+    && chmod -R g=u ${BAL_HOME} \
+    && rm ballerina-0.93.zip
+
+USER ${USER}
 
 CMD ballerina-0.93/bin/ballerina run loanApplicationsService.balx
