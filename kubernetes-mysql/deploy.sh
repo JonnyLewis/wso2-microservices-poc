@@ -20,10 +20,17 @@ oc project wso2
 
 echo 'deploying mysql server...'
 
+if [ -x "$(command -v minishift)" ]; then
+  echo "Creating mysql data folder /tmp/data/pv-mysql in Minishift host..."
+  minishift ssh "sudo mkdir -p /tmp/data/pv-mysql"
+  echo "Granting write access to group of /tmp/data/pv-mysql..."
+  minishift ssh "sudo chmod -R g+rw /tmp/data/pv-mysql"
+fi
+
 # config maps
 oc create configmap post-init --from-file=post-init/post-init.sh
 oc create configmap mysql-scripts --from-file=scripts/
-sleep 10s
+sleep 5s
 
 # volumes
 oc create -f resources/volumes/persistent-volumes.yaml
