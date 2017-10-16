@@ -21,7 +21,3 @@ oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l 
 oc delete configmap post-init
 oc delete configmap mysql-scripts
 
-if [ -x "$(command -v minishift)" ]; then
-  echo "Removing temporary data folder..."
-  minishift ssh "sudo rm -rf /tmp/data/"
-fi

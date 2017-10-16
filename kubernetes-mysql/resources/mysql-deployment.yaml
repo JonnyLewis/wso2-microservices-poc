@@ -49,8 +49,9 @@ spec:
           subPath: post-init.sh
         - name: mysql-scripts
           mountPath: /tmp/scripts/
+      serviceAccountName: wso2svcacct
       securityContext:
-          supplementalGroups: [0]
+        supplementalGroups: [0]
       volumes:
       - name: mysql-data
         persistentVolumeClaim:
@@ -61,4 +62,3 @@ spec:
       - name: mysql-scripts
         configMap:
           name: mysql-scripts
-      serviceAccountName: "wso2svcacct"
