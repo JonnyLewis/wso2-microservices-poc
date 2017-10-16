@@ -23,6 +23,18 @@ function echoBold () {
 
 set -e
 
+if [ -x "$(command -v minishift)" ]; then
+  data_folder="/tmp/data/pv-wso2ei-bps"
+  echo "Creating wso2ei/bps data folder ${data_folder} in Minishift host..."
+  minishift ssh "sudo mkdir -p ${data_folder}"
+  echo "Granting write access to group of ${data_folder}..."
+  minishift ssh "sudo chmod -R g+rw ${data_folder}"
+fi
+
+# volumes
+oc create -f resources/volumes
+sleep 5s
+
 # configuration maps
 echoBold 'creating configuration maps...'
 oc create configmap wso2ei-bps-conf --from-file=conf/bps/conf/
@@ -32,10 +44,6 @@ oc create configmap wso2ei-bps-conf-tomcat --from-file=conf/bps/conf/tomcat/
 oc create configmap wso2ei-bps-conf-epr --from-file=conf/bps/conf/epr/
 oc create configmap wso2ei-bps-conf-bpmn-explorer --from-file=conf/bps/repository/deployment/server/jaggeryapps/bpmn-explorer/config/
 oc create configmap wso2ei-bps-conf-humantask-explorer --from-file=conf/bps/repository/deployment/server/jaggeryapps/humantask-explorer/config/
-
-# bps
-oc create -f resources/volumes
-sleep 10s
 
 echoBold 'deploying wso2 ei/bps...'
 oc create -f resources/bps
