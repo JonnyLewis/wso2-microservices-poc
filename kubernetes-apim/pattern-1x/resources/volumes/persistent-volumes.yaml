@@ -26,6 +26,6 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /tmp/data/wso2apim-pattern-1x-pv
+    path: /tmp/data/pv-wso2apim
 
 

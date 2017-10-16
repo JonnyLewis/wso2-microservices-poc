@@ -19,6 +19,15 @@
 oc project wso2
 
 echo 'deploying api manager...'
+
+if [ -x "$(command -v minishift)" ]; then
+  data_folder="/tmp/data/pv-wso2apim"
+  echo "Creating wso2ei/bps data folder ${data_folder} in Minishift host..."
+  minishift ssh "sudo mkdir -p ${data_folder}"
+  echo "Granting write access to group of ${data_folder}..."
+  minishift ssh "sudo chmod -R g+rw ${data_folder}"
+fi
+
 echo 'creating volumes...'
 oc create -f resources/volumes/persistent-volumes.yaml
 
