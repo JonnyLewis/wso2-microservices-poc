@@ -16,8 +16,6 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-set -e
-
 pushd kubernetes-apim/pattern-1x/
 ./undeploy.sh
 popd
