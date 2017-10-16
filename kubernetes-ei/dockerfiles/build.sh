@@ -34,4 +34,4 @@ function docker_build() {
     fi
 }
 
-docker_build imesh/wso2-microservices-poc-wso2ei-bps:6.1.1 ${bps_dir}
+docker_build imesh/wso2-microservices-poc-wso2ei-bps:6.1.1-v2 ${bps_dir}

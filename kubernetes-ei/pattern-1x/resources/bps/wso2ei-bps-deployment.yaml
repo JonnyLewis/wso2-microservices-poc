@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: wos2ei-bps
-        image: imesh/wso2-microservices-poc-wso2ei-bps:6.1.1
+        image: imesh/wso2-microservices-poc-wso2ei-bps:6.1.1-v2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9765
@@ -38,9 +38,6 @@ spec:
         - containerPort: 9445
           protocol: TCP
         volumeMounts:
-        -
-          name: wso2ei-bps-storage-volume
-          mountPath: /home/wso2user/wso2ei-6.1.1/wso2/business-process/repository/deployment/server
         - name: wso2ei-bps-conf
           mountPath: /home/wso2user/wso2ei-6.1.1-conf/bps/conf
         - name: wso2ei-bps-conf-axis2
@@ -62,9 +59,6 @@ spec:
           periodSeconds: 20
       serviceAccountName: wso2svcacct
       volumes:
-      - name: wso2ei-bps-storage-volume
-        persistentVolumeClaim:
-          claimName: wso2ei-bps-volume-claim
       - name: wso2ei-bps-conf
         configMap:
           name: wso2ei-bps-conf
