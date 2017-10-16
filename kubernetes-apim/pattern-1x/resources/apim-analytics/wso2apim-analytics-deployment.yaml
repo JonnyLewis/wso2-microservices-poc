@@ -32,7 +32,7 @@ spec:
     spec:
       hostname: wso2apim-analytics
       containers:
-      - image: imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0
+      - image: imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0-v2
         name: wso2apim-analytics
         imagePullPolicy: IfNotPresent
         ports:
@@ -76,8 +76,6 @@ spec:
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/bin/"
           - name: apim-analytics-conf
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/conf/"
-          # - name: apim-analytics-spark
-          #   mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/conf-analytics-spark/"
           - name: apim-analytics-axis2
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/conf-axis2/"
           - name: apim-analytics-datasources

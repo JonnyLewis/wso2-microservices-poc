@@ -35,5 +35,5 @@ function docker_build() {
     fi
 }
 
-docker_build imesh/wso2-microservices-poc-wso2apim:2.1.0 $apim_dir
-docker_build imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0 $analytics_dir
+docker_build imesh/wso2-microservices-poc-wso2apim:2.1.0-v2 $apim_dir
+docker_build imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0-v2 $analytics_dir

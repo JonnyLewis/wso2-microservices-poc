@@ -54,7 +54,7 @@ RUN useradd --system --uid ${USER_ID} --gid 0 --create-home --home-dir ${USER_HO
 COPY ${FILES}/${WSO2_SERVER_PACK} ${STARTUP_SCRIPT} ${FILES}/${JDK_ARCHIVE} ${FILES}/${JDBC_DRIVER} \
      ${FILES}/${CLIENT_TRUSTSTORE} \
      ${FILES}/${API_IMPORT_EXPORT_WAR} \
-     ${FILES}/${WSO2CARBON_JKS} sudoers change_ownership.sh ${USER_HOME}/
+     ${FILES}/${WSO2CARBON_JKS} ${USER_HOME}/
 
 # and creates the init script
 RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
@@ -79,15 +79,10 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
 	    && mkdir -p ${USER_HOME}/scripts/ \
 	    && cat ${USER_HOME}/${STARTUP_SCRIPT} > ${USER_HOME}/scripts/${STARTUP_SCRIPT} \
 	    && rm ${USER_HOME}/${STARTUP_SCRIPT} \
-	    && cat ${USER_HOME}/sudoers > /etc/sudoers \
-	    && rm ${USER_HOME}/sudoers \
-	    && cat ${USER_HOME}/change_ownership.sh > /bin/change_ownership.sh \
-	    && chmod 0755 /bin/change_ownership.sh \
-	    && rm ${USER_HOME}/change_ownership.sh \
-	    && chgrp -R 0 ${USER_HOME} \
-	    && chmod -R g=u ${USER_HOME} \
 	    && chown -R ${USER_ID} ${USER_HOME} \
-	    && chmod -R 0774 ${USER_HOME}
+	    && chmod -R 0774 ${USER_HOME} \
+	    && chgrp -R 0 ${USER_HOME} \
+        && chmod -R g=u ${USER_HOME}
 
 # set the user, work directory and home 
 USER ${USER_ID}

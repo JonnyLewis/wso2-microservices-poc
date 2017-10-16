@@ -20,10 +20,6 @@ set -e
 carbon_home=${HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 server_artifact_location=${carbon_home}/repository/deployment/server
 
-# change the user of repository/deployment/server to wso2user. 
-# this is done to avoid permission issues arising with volume mounts 
-sudo /bin/change_ownership.sh
-
 # Copy the backed up artifacts from ${HOME}/tmp/server/. Copying the initial artifacts to ${HOME}/tmp/server/ is done in the 
 # Dockerfile. This is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially). 
 # The artifacts will be copied to the CARBON_HOME/repository/deployment/server location before the server is started.

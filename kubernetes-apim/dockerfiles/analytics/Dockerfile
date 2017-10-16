@@ -63,7 +63,7 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
             ${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/resources/security/ \
         && cp ${USER_HOME}/${WSO2CARBON_JKS} \
             ${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/resources/security/ \
-        && cp -r ${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/deployment/server ${USER_HOME}/tmp/ \
+        && mv ${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/deployment/server ${USER_HOME}/tmp/ \
         && rm ${USER_HOME}/${WSO2_SERVER_PACK} \
         && rm ${USER_HOME}/${JDK_ARCHIVE} \
         && mkdir -p ${USER_HOME}/scripts/ \
@@ -72,10 +72,10 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
         && rm ${USER_HOME}/${JDBC_DRIVER} \
         && rm ${USER_HOME}/${CLIENT_TRUSTSTORE} \
         && rm ${USER_HOME}/${WSO2CARBON_JKS} \
-        && chgrp -R 0 ${USER_HOME} \
-        && chmod -R g=u ${USER_HOME} \
         && chown -R ${USER_ID} ${USER_HOME} \
-        && chmod -R 0774 ${USER_HOME}
+        && chmod -R 0774 ${USER_HOME} \
+        && chgrp -R 0 ${USER_HOME} \
+        && chmod -R g=u ${USER_HOME}
 
 # set the user, work directory and home 
 USER ${USER_ID}

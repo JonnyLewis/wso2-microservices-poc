@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       -
-        image: imesh/wso2-microservices-poc-wso2apim:2.1.0
+        image: imesh/wso2-microservices-poc-wso2apim:2.1.0-v2
         name: wso2apim
         imagePullPolicy: IfNotPresent
         ports:
@@ -64,9 +64,6 @@ spec:
           containerPort: 7611
           protocol: TCP
         volumeMounts:
-        -
-          name: apim-mgt-storage-volume
-          mountPath: /home/wso2user/wso2am-2.1.0/repository/deployment/server
         - name: apim-bin
           mountPath: /home/wso2user/wso2am-2.1.0-conf/bin/
         - name: apim-conf
@@ -88,9 +85,6 @@ spec:
           periodSeconds: 20
       serviceAccountName: wso2svcacct
       volumes:
-      - name: apim-mgt-storage-volume
-        persistentVolumeClaim:
-          claimName: wso2apim-volume-claim
       - name: apim-bin
         configMap:
           name: apim-bin
