@@ -1,4 +1,4 @@
-CREATE DATABASE wso2apim_analytics_db;
+CREATE DATABASE IF NOT EXISTS wso2apim_analytics_db;
 USE wso2apim_analytics_db;
 
 CREATE TABLE IF NOT EXISTS REG_CLUSTER_LOCK (

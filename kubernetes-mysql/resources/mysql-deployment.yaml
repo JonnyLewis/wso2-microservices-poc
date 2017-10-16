@@ -42,12 +42,19 @@ spec:
         - containerPort: 3306
           name: mysql
         volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql/data
         - name: post-init
           mountPath: /usr/share/container-scripts/mysql/post-init.sh
           subPath: post-init.sh
         - name: mysql-scripts
           mountPath: /tmp/scripts/
+      securityContext:
+          supplementalGroups: [0]
       volumes:
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: mysql-data-volume-claim
       - name: post-init
         configMap:
           name: post-init
