@@ -31,10 +31,10 @@ The following diagram illustrates the solution architecture of this POC:
 - [OpenShift CLI](https://docs.openshift.org/latest/cli_reference/get_started_cli.html#installing-the-cli) v3.6.0+
 - Following Docker images:
   ````
-  imesh/wso2-microservices-poc-customers-service:0.2
-  imesh/wso2-microservices-poc-credits-service:0.2
-  imesh/wso2-microservices-poc-loans-service:0.2
-  imesh/wso2-microservices-poc-loan-applications-service:0.2
+  imesh/wso2-microservices-poc-customers-service:0.3
+  imesh/wso2-microservices-poc-credits-service:0.3
+  imesh/wso2-microservices-poc-loans-service:0.3
+  imesh/wso2-microservices-poc-loan-applications-service:0.3
   imesh/wso2-microservices-poc-wso2apim:2.1.0-v2
   imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0-v2
   imesh/wso2-microservices-poc-wso2ei-bps:6.1.1-v2
@@ -74,10 +74,10 @@ daemon. This will allow the required Docker images to be pulled to the Minishift
 6. Pull the below Docker images into the OpenShift environment:
 
    ````bash
-   docker pull imesh/wso2-microservices-poc-customers-service:0.2
-   docker pull imesh/wso2-microservices-poc-credits-service:0.2
-   docker pull imesh/wso2-microservices-poc-loans-service:0.2
-   docker pull imesh/wso2-microservices-poc-loan-applications-service:0.2
+   docker pull imesh/wso2-microservices-poc-customers-service:0.3
+   docker pull imesh/wso2-microservices-poc-credits-service:0.3
+   docker pull imesh/wso2-microservices-poc-loans-service:0.3
+   docker pull imesh/wso2-microservices-poc-loan-applications-service:0.3
    docker pull imesh/wso2-microservices-poc-wso2apim:2.1.0-v2
    docker pull imesh/wso2-microservices-poc-wso2apim-analytics:2.1.0-v2
    docker pull imesh/wso2-microservices-poc-wso2ei-bps:6.1.1-v2
