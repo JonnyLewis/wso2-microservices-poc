@@ -58,7 +58,7 @@ echo 'deploying apim analytics...'
 oc create -f resources/apim-analytics/wso2apim-analytics-deployment.yaml
 
 echo 'waiting for apim analytics to get started...'
-sleep 30s
+sleep 50s
 
 echo 'deploying apim...'
 oc create -f resources/apim/wso2apim-deployment.yaml

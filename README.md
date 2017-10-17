@@ -262,8 +262,7 @@ file to the following folders:
    cp mysql-connector-java-5.1.34-bin.jar kubernetes-apim/dockerfiles/analytics/files/
    ````
 
-3. Download WSO2 API Manager 2.1.0, WSO2 API Analytics 2.1.0 and WSO2 Enterprise Integrator 6.1.1 distributions via WUM 
-and copy those to the following folders:
+3. Download WSO2 API Manager 2.1.0, WSO2 API Analytics 2.1.0 and WSO2 Enterprise Integrator 6.1.1 distributions via [WUM](http://wso2.com/wum) and copy those to the following folders:
 
    ````bash
    cp wso2am-2.1.0.zip kubernetes-apim/dockerfiles/apim/files/
