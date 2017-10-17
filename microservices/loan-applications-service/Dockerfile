@@ -21,6 +21,7 @@ MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 ENV DEBIAN_FRONTEND noninteractive
 
 ARG USER=wso2user
+ARG USER_ID=1000000000
 ARG BAL_HOME=/ballerina/
 RUN mkdir ${BAL_HOME}
 
@@ -30,13 +31,13 @@ COPY loanApplicationsService.balx ${BAL_HOME}
 WORKDIR ${BAL_HOME}
 
 RUN unzip ballerina-0.93.zip \
-    && useradd --system --no-log-init ${USER} \
+    && useradd --system --uid ${USER_ID} --gid 0 --no-log-init ${USER} \
     && chown -R ${USER} ${BAL_HOME} \
     && chmod -R 0774 ${BAL_HOME} \
     && chgrp -R 0 ${BAL_HOME} \
     && chmod -R g=u ${BAL_HOME} \
     && rm ballerina-0.93.zip
 
-USER ${USER}
+USER ${USER_ID}
 
 CMD ballerina-0.93/bin/ballerina run loanApplicationsService.balx

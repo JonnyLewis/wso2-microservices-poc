@@ -28,7 +28,7 @@
 
     <groupId>org.demo.loan</groupId>
     <artifactId>loans-service</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
     <name>Loans Service</name>
 
     <dependencies>
@@ -76,8 +76,8 @@
                                 <assembly>
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
-                                <runCmds>useradd --system --no-log-init wso2user</runCmds>
-                                <user>wso2user</user>
+                                <runCmds>useradd --system --uid 1000000000 --gid 0 --no-log-init wso2user</runCmds>
+                                <user>1000000000</user>
                                 <cmd>java -jar maven/loans-service-${project.version}.jar</cmd>
                             </build>
                         </image>
