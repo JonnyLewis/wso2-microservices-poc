@@ -27,7 +27,7 @@ spec:
         app: loans
     spec:
       containers:
-      - image: imesh/wso2-microservices-poc-loans-service:0.2
+      - image: imesh/wso2-microservices-poc-loans-service:0.3
         name: loans
         imagePullPolicy: IfNotPresent
         env:
@@ -46,3 +46,4 @@ spec:
         ports:
         - containerPort: 8080
           name: loans
+      serviceAccountName: wso2svcacct

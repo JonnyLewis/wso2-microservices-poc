@@ -2,16 +2,16 @@
 set -e
 
 echo "Loading customers service docker image..."
-docker load < customers-service-0.2.tar
+docker load < customers-service-0.3.tar
 
 echo "Loading credits service docker image..."
-docker load < credits-service-0.2.tar
+docker load < credits-service-0.3.tar
 
 echo "Loading loans service docker image..."
-docker load < loans-service-0.2.tar
+docker load < loans-service-0.3.tar
 
 echo "Loading loan applications service docker image..."
-docker load < loan-applications-0.2.tar
+docker load < loan-applications-0.3.tar
 
 echo "Loading wso2apim docker image..."
 docker load < wso2apim-2.1.0-v2.tar

@@ -27,7 +27,7 @@ spec:
         app: customers
     spec:
       containers:
-      - image: imesh/wso2-microservices-poc-customers-service:0.2
+      - image: imesh/wso2-microservices-poc-customers-service:0.3
         name: customers
         imagePullPolicy: IfNotPresent
         env:
@@ -46,3 +46,4 @@ spec:
         ports:
         - containerPort: 8080
           name: customers
+      serviceAccountName: wso2svcacct

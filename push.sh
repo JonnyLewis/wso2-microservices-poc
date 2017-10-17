@@ -2,16 +2,16 @@
 set -e
 
 echo "Pushing customers service docker image..."
-docker push imesh/wso2-microservices-poc-customers-service:0.2
+docker push imesh/wso2-microservices-poc-customers-service:0.3
 
 echo "Pushing credits service docker image..."
-docker push imesh/wso2-microservices-poc-credits-service:0.2
+docker push imesh/wso2-microservices-poc-credits-service:0.3
 
 echo "Pushing loans service docker image..."
-docker push imesh/wso2-microservices-poc-loans-service:0.2
+docker push imesh/wso2-microservices-poc-loans-service:0.3
 
 echo "Pushing loan applications service docker image..."
-docker push imesh/wso2-microservices-poc-loan-applications-service:0.2
+docker push imesh/wso2-microservices-poc-loan-applications-service:0.3
 
 echo "Pushing wso2apim docker image..."
 docker push imesh/wso2-microservices-poc-wso2apim:2.1.0-v2
