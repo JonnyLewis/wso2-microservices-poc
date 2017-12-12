@@ -45,7 +45,7 @@ spec:
         - name: mysql-data
           mountPath: /var/lib/mysql/data
         - name: post-init
-          mountPath: /usr/share/container-scripts/mysql/post-init.sh
+          mountPath: /usr/share/container-scripts/mysql/init/post-init.sh
           subPath: post-init.sh
         - name: mysql-scripts
           mountPath: /tmp/scripts/
