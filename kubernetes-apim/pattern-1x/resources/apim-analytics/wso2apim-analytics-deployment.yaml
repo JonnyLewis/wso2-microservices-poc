@@ -76,6 +76,9 @@ spec:
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/bin/"
           - name: apim-analytics-conf
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/conf/"
+          - name: apim-analytics-conf-analytics-node-id
+            mountPath: "/home/wso2user/wso2am-analytics-2.1.0/repository/conf/analytics/my-node-id.dat"
+            subPath: my-node-id.dat
           - name: apim-analytics-axis2
             mountPath: "/home/wso2user/wso2am-analytics-2.1.0-conf/conf-axis2/"
           - name: apim-analytics-datasources
@@ -89,6 +92,9 @@ spec:
         - name: apim-analytics-conf
           configMap:
             name: apim-analytics-conf
+        - name: apim-analytics-conf-analytics-node-id
+          configMap:
+            name: apim-analytics-conf-analytics-node-id
         - name: apim-analytics-axis2
           configMap:
             name: apim-analytics-axis2

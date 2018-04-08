@@ -21,6 +21,7 @@ oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l 
 
 oc delete configmaps apim-analytics-bin
 oc delete configmaps apim-analytics-conf
+oc delete configmaps apim-analytics-conf-analytics-node-id
 oc delete configmaps apim-analytics-axis2
 oc delete configmaps apim-analytics-datasources
 oc delete configmaps apim-analytics-tomcat

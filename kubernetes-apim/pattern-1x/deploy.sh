@@ -34,6 +34,7 @@ oc create -f resources/volumes/persistent-volumes.yaml
 echo 'creating config maps...'
 oc create configmap apim-analytics-bin --from-file=confs/apim-analytics/bin/
 oc create configmap apim-analytics-conf --from-file=confs/apim-analytics/repository/conf/
+oc create configmap apim-analytics-conf-analytics-node-id --from-file=confs/apim-analytics/repository/conf/analytics/my-node-id.dat
 oc create configmap apim-analytics-axis2 --from-file=confs/apim-analytics/repository/conf/axis2/
 oc create configmap apim-analytics-datasources --from-file=confs/apim-analytics/repository/conf/datasources/
 oc create configmap apim-analytics-tomcat --from-file=confs/apim-analytics/repository/conf/tomcat/
