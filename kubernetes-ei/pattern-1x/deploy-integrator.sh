@@ -16,5 +16,19 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-./deploy-integrator.sh
-./deploy-bps.sh
+# methods
+function echoBold () {
+    echo $'\e[1m'"${1}"$'\e[0m'
+}
+
+set -e
+
+# configuration maps
+echoBold 'creating integrator configuration maps...'
+oc create configmap wso2ei-integrator-synapse-conf-api --from-file=conf/integrator/repository/deployment/server/synapse-configs/default/api/
+oc create configmap wso2ei-integrator-synapse-conf-endpoints --from-file=conf/integrator/repository/deployment/server/synapse-configs/default/endpoints/
+oc create configmap wso2ei-integrator-synapse-conf-sequences --from-file=conf/integrator/repository/deployment/server/synapse-configs/default/sequences/
+
+echoBold 'deploying wso2 ei/integrator...'
+oc apply -f resources/integrator
+oc apply -f resources/routes

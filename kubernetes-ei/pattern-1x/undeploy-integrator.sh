@@ -16,5 +16,10 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-./deploy-integrator.sh
-./deploy-bps.sh
+echo 'un-deploying ei/integrator...'
+oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l pattern=wso2ei-pattern-1x -n wso2
+
+echo 'delete integrator configuration maps...'
+oc delete configmap wso2ei-integrator-synapse-conf-api
+oc delete configmap wso2ei-integrator-synapse-conf-endpoints
+oc delete configmap wso2ei-integrator-synapse-conf-sequences

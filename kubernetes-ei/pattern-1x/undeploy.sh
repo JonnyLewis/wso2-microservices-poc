@@ -16,14 +16,5 @@
 # limitations under the License
 # ------------------------------------------------------------------------
 
-echo 'un-deploying ei/bps...'
-oc delete deployments,services,PersistentVolume,PersistentVolumeClaim,Routes -l pattern=wso2ei-pattern-1x -n wso2
-
-echo 'delete configuration maps...'
-oc delete configmap wso2ei-bps-conf
-oc delete configmap wso2ei-bps-conf-axis2 
-oc delete configmap wso2ei-bps-conf-datasources
-oc delete configmap wso2ei-bps-conf-tomcat
-oc delete configmap wso2ei-bps-conf-epr
-oc delete configmap wso2ei-bps-conf-bpmn-explorer
-oc delete configmap wso2ei-bps-conf-humantask-explorer
+./undeploy-integrator.sh
+./undeploy-bps.sh
